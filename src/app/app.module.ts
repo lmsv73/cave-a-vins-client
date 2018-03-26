@@ -16,6 +16,7 @@ import {JwtInterceptor} from './_helpers';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
 import {AlertComponent} from './_directives';
+import {OauthService} from './api/api/oauth.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {AlertComponent} from './_directives';
     BottleService,
     AuthGuard,
     AlertService,
+    OauthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

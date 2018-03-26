@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService } from '../_services/index';
-import {UserService} from '../api';
+import {OauthService} from '../api/api/oauth.service';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private userService: UserService,
+        private oathService: OauthService,
         private alertService: AlertService) { }
 
     ngOnInit() {
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.userService.login(this.model.username, this.model.password)
+        this.oathService.getToken(this.model.username, this.model.password, "password")
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);

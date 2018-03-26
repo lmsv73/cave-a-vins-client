@@ -27,7 +27,7 @@ import {Bottle} from '../model/bottle';
 
 
 @Injectable()
-export class OathService {
+export class OauthService {
 
   protected basePath = 'http://localhost:8080';
   public defaultHeaders = new HttpHeaders();
@@ -44,39 +44,23 @@ export class OathService {
   }
 
   /**
-   * Find bottles for the userId
+   * Give token for the user
    *
-   * @param userId ID of cellar to return
+   * @param login
+   * @param password
+   * @param grant_type
    */
   public getToken(login: string, password: string, grant_type: string): Observable<any> {
     let headers = this.defaultHeaders;
 
-    // authentication (vinecellar_auth) required
-    if (this.configuration.accessToken) {
-      let accessToken = typeof this.configuration.accessToken === 'function'
-        ? this.configuration.accessToken()
-        : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
-    }
+    headers.set('Authorization', 'Basic Z2lneTpzZWNyZXQ=');
+    headers.set('Content-type', 'application/x-www-form-urlencoded');
 
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json'
-    ];
-    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    let consumes: string[] = [
-    ];
-
-    return this.httpClient.get<any>(`${this.basePath}/oath/token/${encodeURIComponent(String(userId))}`,
+    return this.httpClient.get<any>(`${this.basePath}/oauth/token?username=${encodeURIComponent(String(login))}&password=${encodeURIComponent(String(password))}&grant_type=${encodeURIComponent(String(grant_type))}`,
       {
         headers: headers,
         withCredentials: this.configuration.withCredentials,
       }
     );
-
+  }
 }
