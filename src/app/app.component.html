@@ -1,77 +1,9 @@
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>
-    {{title}}
-  </button>
-
-  <button mat-button routerLink="/addCompartment">
-    <mat-icon>add</mat-icon>
-    Ajouter un casier
-  </button>
-
-  <button mat-button routerLink="/addBottle">
-    <mat-icon>add</mat-icon>
-    Ajouter une bouteille
-  </button>
-
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/logout">Se déconnecter</button>
+<!-- main app container -->
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+      <alert></alert>
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</mat-toolbar>
-
-<div class="example-container mat-elevation-z8">
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-  </div>
-
-  <mat-table #table [dataSource]="dataSource">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.type.name}} </mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="region">
-      <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.region}} </mat-cell>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="colour">
-      <mat-header-cell *matHeaderCellDef> Colour </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.colour}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="compartment">
-      <mat-header-cell *matHeaderCellDef> Compartment </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.compartment.name}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.nbBottles}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="photo">
-      <mat-header-cell *matHeaderCellDef> Photo </mat-header-cell>
-      <mat-cell *matCellDef="let element">  </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
 </div>
