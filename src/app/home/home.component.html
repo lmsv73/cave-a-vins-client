@@ -1,24 +1,4 @@
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/">
-    <mat-icon>home</mat-icon>
-    {{title}}
-  </button>
-
-  <button mat-button routerLink="/addCompartment">
-    <mat-icon>add</mat-icon>
-    Ajouter un casier
-  </button>
-
-  <button mat-button routerLink="/addBottle">
-    <mat-icon>add</mat-icon>
-    Ajouter une bouteille
-  </button>
-
-  <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button (click)="logout()" mat-button>Se déconnecter</button>
-  </div>
-</mat-toolbar>
+<app-header></app-header>
 
 <div class="example-container mat-elevation-z8">
   <div class="example-header">

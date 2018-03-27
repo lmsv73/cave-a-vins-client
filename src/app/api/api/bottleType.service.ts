@@ -58,9 +58,9 @@ export class BottleTypeService {
 
 
     /**
-     * Create a new bottle type
+     * Create a new add-bottle type
      *
-     * @param body A new bottle type
+     * @param body A new add-bottle type
      */
     public addBottleType(body: BottleType): Observable<{}> {
         if (body === null || body === undefined) {
@@ -105,7 +105,7 @@ export class BottleTypeService {
     }
 
     /**
-     * Delete a bottle type
+     * Delete a add-bottle type
      *
      * @param bottletypeId BottleType id to delete
      * @param apiKey
@@ -150,8 +150,8 @@ export class BottleTypeService {
     }
 
     /**
-     * Get the list of the bottle types
-     * Get the list of the bottle types that need to be validated by the admin
+     * Get the list of the add-bottle types
+     * Get the list of the add-bottle types that need to be validated by the admin
      */
     public getBottleToValidate(): Observable<BottleType> {
 
@@ -187,7 +187,7 @@ export class BottleTypeService {
     }
 
     /**
-     * Find bottle types
+     * Find add-bottle types
      *
      */
     public getBottlesType(): Observable<BottleType> {
@@ -224,11 +224,11 @@ export class BottleTypeService {
     }
 
     /**
-     * Update a bottle type
+     * Update a add-bottle type
      *
-     * @param bottleTypeId Id of the bottle type that needs to be updated
-     * @param name Updated name of the bottle type
-     * @param valide Updated validity of the bottle type
+     * @param bottleTypeId Id of the add-bottle type that needs to be updated
+     * @param name Updated name of the add-bottle type
+     * @param valide Updated validity of the add-bottle type
      */
     public updateBottleType(bottleTypeId: number, name?: number, valide?: boolean): Observable<{}> {
         if (bottleTypeId === null || bottleTypeId === undefined) {

@@ -10,13 +10,11 @@ import {Router} from '@angular/router';
 })
 
 export class HomeComponent {
-  title = 'Cave à vins';
   ELEMENT_DATA: Bottle[];
   dataSource;
 
   constructor(
-    public userService: UserService,
-    private router: Router) {
+    public userService: UserService) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.getBottleByUserName(currentUser.username).subscribe(data => {
       this.ELEMENT_DATA = data;
@@ -31,11 +29,6 @@ export class HomeComponent {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
-  }
-
-  logout() {
-    localStorage.clear();
-    this.router.navigateByUrl('/login');
   }
 }
 

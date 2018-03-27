@@ -59,7 +59,7 @@ export class CompartmentService {
 
 
     /**
-     * Create a new compartment
+     * Create a new add-compartment
      *
      * @param body Compartment object that needs to be added
      */
@@ -106,7 +106,7 @@ export class CompartmentService {
     }
 
     /**
-     * Delete a compartment
+     * Delete a add-compartment
      *
      * @param compartmentId Compartment id to delete
      * @param apiKey
@@ -151,10 +151,10 @@ export class CompartmentService {
     }
 
     /**
-     * Update an existing compartment
+     * Update an existing add-compartment
      *
-     * @param compartmentId Id of the compartment that needs to be updated
-     * @param name Updated name of the compartment
+     * @param compartmentId Id of the add-compartment that needs to be updated
+     * @param name Updated name of the add-compartment
      */
     public updateCompartment(compartmentId: number, name?: string): Observable<{}> {
         if (compartmentId === null || compartmentId === undefined) {
@@ -210,9 +210,9 @@ export class CompartmentService {
     }
 
     /**
-     * Upload an image for the compartment
+     * Upload an image for the add-compartment
      *
-     * @param compartmentId ID of compartment to update
+     * @param compartmentId ID of add-compartment to update
      * @param additionalMetadata Additional data to pass to server
      * @param file file to upload
      */

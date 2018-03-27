@@ -59,7 +59,7 @@ export class BottleService {
 
 
     /**
-     * Create a new bottle
+     * Create a new add-bottle
      *
      * @param body Bottle object that needs to be added
      */
@@ -106,7 +106,7 @@ export class BottleService {
     }
 
     /**
-     * Delete a bottle
+     * Delete a add-bottle
      *
      * @param bottleId Bottle id to delete
      * @param apiKey
@@ -192,10 +192,10 @@ export class BottleService {
     }
 
     /**
-     * Update an existing bottle
+     * Update an existing add-bottle
      *
-     * @param bottleId Id of the bottle that needs to be updated
-     * @param date Updated date of the bottle
+     * @param bottleId Id of the add-bottle that needs to be updated
+     * @param date Updated date of the add-bottle
      * @param region Updated region of the vine
      * @param colour Updated colour of the vine
      */
@@ -259,9 +259,9 @@ export class BottleService {
     }
 
     /**
-     * Upload an image for the bottle
+     * Upload an image for the add-bottle
      *
-     * @param bottleId ID of bottle to update
+     * @param bottleId ID of add-bottle to update
      * @param additionalMetadata Additional data to pass to server
      * @param file file to upload
      */

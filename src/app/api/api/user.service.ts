@@ -24,6 +24,7 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import {Bottle} from '../model/bottle';
+import {Router} from '@angular/router';
 
 
 @Injectable()
@@ -33,7 +34,12 @@ export class UserService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(
+      protected httpClient: HttpClient,
+      @Optional()@Inject(BASE_PATH) basePath: string,
+      @Optional() configuration: Configuration,
+      private router: Router
+    ) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -81,9 +87,9 @@ export class UserService {
     }
 
   /**
-   * Find a specific bottle
+   * Find a specific add-bottle
    *
-   * @param bottleId ID of bottle to return
+   * @param bottleId ID of add-bottle to return
    */
   public getBottleByUserName(userName: string): Observable<Bottle[]> {
     if (userName === null || userName === undefined) {
@@ -101,6 +107,12 @@ export class UserService {
         withCredentials: this.configuration.withCredentials,
       }
     );
+  }
+
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 
 }

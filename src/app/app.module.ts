@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -15,13 +14,19 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
+import {AddCompartmentComponent} from './add-compartment/add-compartment.component';
+import {AddBottleComponent} from './add-bottle/add-bottle.component';
+import {HeaderComponent} from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddCompartmentComponent,
+    AddBottleComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
