@@ -11,6 +11,7 @@ export class AddBottleComponent {
   compartments: Compartment[];
   bottleTypes: BottleType[];
   bottle: Bottle;
+  years = [];
 
   colour: string;
   region: string;
@@ -36,6 +37,11 @@ export class AddBottleComponent {
         this.bottleTypes = data;
       }
     )
+
+    let d = new Date();
+    for(let i = d.getFullYear(); i >= 1800; --i) {
+      this.years.push(i);
+    }
   }
 
   addBottle() {
