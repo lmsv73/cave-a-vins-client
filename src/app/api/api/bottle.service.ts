@@ -68,33 +68,15 @@ export class BottleService {
             throw new Error('Required parameter body was null or undefined when calling createBottle.');
         }
 
-        let headers = this.defaultHeaders;
-
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
         // to determine the Content-Type header
         let consumes: string[] = [
             'application/json'
         ];
-        let httpContentTypeSelected:string = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
+
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        let headers = this.defaultHeaders;
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
         return this.httpClient.post<any>(`${this.basePath}/bottle/create`,
             body,

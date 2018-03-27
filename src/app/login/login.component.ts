@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {OauthService} from '../api/api/oauth.service';
+import {UserService} from '../api';
 
 @Component({
     moduleId: module.id,
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private oauthService: OauthService) { }
+        private oauthService: OauthService,
+        private userService: UserService) { }
 
     ngOnInit() {
         // reset login status
@@ -33,8 +35,13 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.oauthService.isLogged = true;
-                    localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, username: this.model.username, isNew: true }));
-                    this.router.navigate([this.returnUrl]);
+                    localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, user: this.model.username }));
+                    this.userService.getCredendials(this.model.username).subscribe(
+                      data2 => {
+                        localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, user: data2 }));
+                        this.router.navigate([this.returnUrl]);
+                      }
+                    )
                 },
                 error => {
                     this.loading = false;

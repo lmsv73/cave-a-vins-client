@@ -89,11 +89,11 @@ export class UserService {
   /**
    * Find a specific add-bottle
    *
-   * @param bottleId ID of add-bottle to return
+   * @param userName ID of add-bottle to return
    */
   public getBottleByUserName(userName: string): Observable<Bottle[]> {
     if (userName === null || userName === undefined) {
-      throw new Error('Required parameter bottleId was null or undefined when calling getBottleById.');
+      throw new Error('Required parameter username was null or undefined when calling getBottleById.');
     }
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -109,6 +109,52 @@ export class UserService {
     );
   }
 
+
+  /**
+   * Find a specific add-bottle
+   *
+   * @param userName ID of add-bottle to return
+   */
+  public getCompartment(userName: string): Observable<Bottle[]> {
+    if (userName === null || userName === undefined) {
+      throw new Error('Required parameter bottleId was null or undefined when calling getBottleById.');
+    }
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    let headers = this.defaultHeaders;
+    headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
+
+    return this.httpClient.get<any>(`${this.basePath}/user/compartments?username=${encodeURIComponent(String(userName))}`,
+      {
+        headers: headers,
+        withCredentials: this.configuration.withCredentials,
+      }
+    );
+  }
+
+  /**
+   * Get user credentials
+   *
+   * @param userName
+   */
+  public getCredendials(userName: string): Observable<Bottle[]> {
+    if (userName === null || userName === undefined) {
+      throw new Error('Required parameter bottleId was null or undefined when calling getBottleById.');
+    }
+
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    let headers = this.defaultHeaders;
+    headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
+
+    return this.httpClient.get<any>(`${this.basePath}/user/credentials?username=${encodeURIComponent(String(userName))}`,
+      {
+        headers: headers,
+        withCredentials: this.configuration.withCredentials,
+      }
+    );
+  }
 
   logout() {
     localStorage.clear();

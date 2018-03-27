@@ -16,7 +16,7 @@ export class HomeComponent {
   constructor(
     public userService: UserService) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.userService.getBottleByUserName(currentUser.username).subscribe(data => {
+    this.userService.getBottleByUserName(currentUser.user.username).subscribe(data => {
       this.ELEMENT_DATA = data;
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
     });

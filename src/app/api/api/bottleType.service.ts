@@ -187,35 +187,17 @@ export class BottleTypeService {
     }
 
     /**
-     * Find add-bottle types
+     * Find bottle types
      *
      */
-    public getBottlesType(): Observable<BottleType> {
+    public getBottlesType(): Observable<BottleType[]> {
 
-        let headers = this.defaultHeaders;
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
+      let headers = this.defaultHeaders;
+      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/bottletype`,
+        return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
             {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,
