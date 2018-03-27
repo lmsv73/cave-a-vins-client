@@ -61,13 +61,10 @@ export class UserService {
     /**
      * Create a user account
      *
-     * @param body Created user object\&quot;
+     * @param username Created user object\&quot;
+     * @param password
      */
-    public createUser(body: User): Observable<{}> {
-        if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling createUser.');
-        }
-
+    public createUser(username: string, password: string): Observable<{}> {
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
@@ -88,12 +85,16 @@ export class UserService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/user/create`,
-            body,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
+        let params = new URLSearchParams();
+        params.append('username', username);
+        params.append('password', password);
+
+        return this.httpClient.post<any>(`${this.basePath}/user/create?username=${encodeURIComponent(String(username))}&password=${encodeURIComponent(String(password))}`,
+            params,
+                {
+                    headers: headers,
+                    withCredentials: this.configuration.withCredentials,
+                }
         );
     }
 
