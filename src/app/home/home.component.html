@@ -16,7 +16,7 @@
 
   <span class="fill-remaining-space"></span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button mat-button routerLink="/logout">Se déconnecter</button>
+    <button (click)="logout()" mat-button>Se déconnecter</button>
   </div>
 </mat-toolbar>
 

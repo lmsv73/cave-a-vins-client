@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatTableDataSource} from '@angular/material';
 import {Bottle, UserService} from '../api';
+import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -14,8 +15,10 @@ export class HomeComponent {
   dataSource;
 
   constructor(
-    public userService: UserService) {
-    this.userService.getBottleByUserName("ludo").subscribe(data => {
+    public userService: UserService,
+    private router: Router) {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userService.getBottleByUserName(currentUser.username).subscribe(data => {
       this.ELEMENT_DATA = data;
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
     });
@@ -28,6 +31,11 @@ export class HomeComponent {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 }
 

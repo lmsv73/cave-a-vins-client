@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     this.oauthService.isLogged = true;
+                    localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, username: this.model.username, isNew: true }));
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

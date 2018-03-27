@@ -67,24 +67,6 @@ export class UserService {
     public createUser(username: string, password: string): Observable<{}> {
         let headers = this.defaultHeaders;
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
-        let httpContentTypeSelected:string = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
         let params = new URLSearchParams();
         params.append('username', username);
         params.append('password', password);
@@ -98,53 +80,6 @@ export class UserService {
         );
     }
 
-    /**
-     * Login to the application
-     *
-     * @param username The user name for login
-     * @param password The hashed password for login
-     */
-    public login(username: string, password: string): Observable<{}> {
-        if (username === null || username === undefined) {
-            throw new Error('Required parameter username was null or undefined when calling login.');
-        }
-        if (password === null || password === undefined) {
-            throw new Error('Required parameter password was null or undefined when calling login.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (username !== undefined) {
-            queryParameters = queryParameters.set('username', <any>username);
-        }
-        if (password !== undefined) {
-            queryParameters = queryParameters.set('password', <any>password);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/user/login`,
-            {
-                params: queryParameters,
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
-    }
-
   /**
    * Find a specific bottle
    *
@@ -155,28 +90,10 @@ export class UserService {
       throw new Error('Required parameter bottleId was null or undefined when calling getBottleById.');
     }
 
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     let headers = this.defaultHeaders;
-
-    // authentication (vinecellar_auth) required
-    if (this.configuration.accessToken) {
-      let accessToken = typeof this.configuration.accessToken === 'function'
-        ? this.configuration.accessToken()
-        : this.configuration.accessToken;
-      headers = headers.set('Authorization', 'Bearer ' + accessToken);
-    }
-
-    // to determine the Accept header
-    let httpHeaderAccepts: string[] = [
-      'application/json'
-    ];
-    let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    if (httpHeaderAcceptSelected != undefined) {
-      headers = headers.set("Accept", httpHeaderAcceptSelected);
-    }
-
-    // to determine the Content-Type header
-    let consumes: string[] = [
-    ];
+    headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
     return this.httpClient.get<any>(`${this.basePath}/user/bottles?username=${encodeURIComponent(String(userName))}`,
       {
