@@ -7,24 +7,21 @@ import {MaterialModule} from './material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BottleService, BottleTypeService, CompartmentService, UserService} from './api';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HomeComponent} from './home';
-import {LoginComponent} from './login';
-import {RegisterComponent} from './register';
-import {AuthGuard} from './_guards';
-import {AlertService} from './_services';
-import {JwtInterceptor} from './_helpers';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
-import {AlertComponent} from './_directives';
 import {OauthService} from './api/api/oauth.service';
+import {AuthGuard} from './guards/auth.guard';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {HomeComponent} from './home/home.component';
+import {JwtInterceptor} from './helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent,
-    AlertComponent
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +37,6 @@ import {OauthService} from './api/api/oauth.service';
     BottleTypeService,
     BottleService,
     AuthGuard,
-    AlertService,
     OauthService,
     {
       provide: HTTP_INTERCEPTORS,
