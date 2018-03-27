@@ -9,6 +9,7 @@ import {OauthService} from '../api/api/oauth.service';
     templateUrl: 'login.component.html'
 })
 
+
 export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
         this.oathService.getToken(this.model.username, this.model.password, "password")
             .subscribe(
                 data => {
+                    this.oathService.isLogged = true;
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

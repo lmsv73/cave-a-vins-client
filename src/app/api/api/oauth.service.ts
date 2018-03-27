@@ -13,25 +13,23 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams }               from '@angular/common/http';
+import { HttpClient, HttpHeaders }                           from '@angular/common/http';
 
 import { Observable }                                        from 'rxjs/Observable';
 import '../rxjs-operators';
 
-import { User } from '../model/user';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { BASE_PATH }                                         from '../variables';
 import { Configuration }                                     from '../configuration';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
-import {Bottle} from '../model/bottle';
 
 
 @Injectable()
 export class OauthService {
 
   protected basePath = 'http://localhost:8080';
-  public defaultHeaders = new HttpHeaders();
   public configuration = new Configuration();
+
+  isLogged = false;
 
   constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
     if (basePath) {
@@ -51,16 +49,14 @@ export class OauthService {
    * @param grant_type
    */
   public getToken(login: string, password: string, grant_type: string): Observable<any> {
-    let headers = this.defaultHeaders;
+    let params = new URLSearchParams();
+    params.append('username', login);
+    params.append('password', password);
+    params.append('grant_type','password');
 
-    headers.set('Authorization', 'Basic Z2lneTpzZWNyZXQ=');
-    headers.set('Content-type', 'application/x-www-form-urlencoded');
+    let headers = new HttpHeaders({'Content-type': 'application/x-www-form-urlencoded; charset=utf-8', 'Authorization': 'Basic '+btoa("gigy:secret")});
+    let options = { headers: headers };
 
-    return this.httpClient.get<any>(`${this.basePath}/oauth/token?username=${encodeURIComponent(String(login))}&password=${encodeURIComponent(String(password))}&grant_type=${encodeURIComponent(String(grant_type))}`,
-      {
-        headers: headers,
-        withCredentials: this.configuration.withCredentials,
-      }
-    );
+    return this.httpClient.post<any>(`${this.basePath}/oauth/token`, params.toString(), options);
   }
 }
