@@ -20,7 +20,7 @@ export interface Bottle {
     date?: number;
     region?: string;
     colour?: string;
-    photoUrls?: Array<string>;
+    photoUrl?: string;
     owner?: User;
     type?: BottleType;
     compartment?: Compartment;
