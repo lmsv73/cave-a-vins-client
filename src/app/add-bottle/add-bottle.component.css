@@ -1,6 +1,5 @@
 mat-form-field {
   display: block;
-  width: 30%;
 }
 
 .example-container {
@@ -10,4 +9,14 @@ mat-form-field {
 button {
   background-color: #3f51b5;
   color: white;
+}
+
+.column {
+  width: 33%;
+  float: left;
+  padding: 10px 50px;
+}
+
+[hidden] {
+  display: none !important;
 }
