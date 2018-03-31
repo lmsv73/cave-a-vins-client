@@ -32,6 +32,7 @@
     <input [(ngModel)]="data.nbBottles" matInput placeholder="Number">
   </mat-form-field>
 
+  <img class="img-bottle" *ngIf="data.photoUrl != null" src="{{ data.photoUrl }}">
 </mat-dialog-content>
 
 <mat-dialog-actions>
