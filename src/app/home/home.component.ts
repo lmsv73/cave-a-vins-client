@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatTableDataSource} from '@angular/material';
-import {Bottle, UserService} from '../api';
+import {Bottle, BottleService, UserService} from '../api';
 import {Router} from '@angular/router';
 import {EditBottleComponent} from '../edit-bottle/edit-bottle.component';
+import {DeleteBottleComponent} from '../delete-bottle/delete-bottle.component';
 
 @Component({
     moduleId: module.id,
@@ -16,7 +17,8 @@ export class HomeComponent {
 
   constructor(
     public userService: UserService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public bottleService: BottleService) {
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.getBottleByUserName(currentUser.user.username).subscribe(data => {
@@ -46,6 +48,29 @@ export class HomeComponent {
         }
       }
     });
+  }
+
+
+  delete(data) {
+    this.dialog.open(DeleteBottleComponent, {
+      data: data,
+      width: '500px'
+    }).afterClosed().subscribe(
+      res => {
+        if(res == "T") {
+          this.bottleService.deleteBottle(data.id).subscribe(
+            res2 => {
+              for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
+                if(this.ELEMENT_DATA[i].id == data.id) {
+                  this.ELEMENT_DATA.splice(i, 1);
+                  this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+                }
+              }
+            }
+          )
+        }
+      }
+    );
   }
 }
 

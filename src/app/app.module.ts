@@ -17,6 +17,7 @@ import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {AddBottleComponent} from './add-bottle/add-bottle.component';
 import {HeaderComponent} from './header/header.component';
 import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
+import {DeleteBottleComponent} from './delete-bottle/delete-bottle.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
     RegisterComponent,
     AddBottleComponent,
     HeaderComponent,
-    EditBottleComponent
+    EditBottleComponent,
+    DeleteBottleComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,9 @@ import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [EditBottleComponent]
+  entryComponents: [
+    EditBottleComponent,
+    DeleteBottleComponent
+  ]
 })
 export class AppModule { }

@@ -87,45 +87,24 @@ export class BottleService {
      * Delete a add-bottle
      *
      * @param bottleId Bottle id to delete
-     * @param apiKey
      */
-    public deleteBottle(bottleId: number, apiKey?: string): Observable<{}> {
+    public deleteBottle(bottleId: number): Observable<{}> {
         if (bottleId === null || bottleId === undefined) {
             throw new Error('Required parameter bottleId was null or undefined when calling deleteBottle.');
         }
 
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         let headers = this.defaultHeaders;
-        if (apiKey !== undefined && apiKey !== null) {
-            headers = headers.set('api_key', String(apiKey));
-        }
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
 
         return this.httpClient.delete<any>(`${this.basePath}/bottle/delete/${encodeURIComponent(String(bottleId))}`,
             {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,
             }
-        );
+          );
     }
 
     /**
