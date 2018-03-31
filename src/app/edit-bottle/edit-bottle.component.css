@@ -11,3 +11,7 @@
 .img-bottle {
   width: 100px;
 }
+
+[hidden] {
+  display: none !important;
+}

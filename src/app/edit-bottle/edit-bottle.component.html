@@ -33,6 +33,10 @@
   </mat-form-field>
 
   <img class="img-bottle" *ngIf="data.photoUrl != null" src="{{ data.photoUrl }}">
+
+  <label class="btn btn-default">
+    Browse <input type="file" hidden name="photo" #fileInput>
+  </label>
 </mat-dialog-content>
 
 <mat-dialog-actions>

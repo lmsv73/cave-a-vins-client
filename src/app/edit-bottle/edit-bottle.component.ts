@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {BottleService, BottleType, BottleTypeService, Compartment, UserService} from '../api';
 
@@ -8,10 +8,12 @@ import {BottleService, BottleType, BottleTypeService, Compartment, UserService} 
   styleUrls: ['./edit-bottle.component.css']
 })
 export class EditBottleComponent  {
-
+  PATH = "http://localhost:8080/images/";
   bottleTypes: BottleType[];
   compartments: Compartment[];
   years = [];
+
+  @ViewChild('fileInput') fileInput;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,6 +40,21 @@ export class EditBottleComponent  {
   }
 
   save() {
-    this.bottleService.updateBottle(this.data).subscribe();
+    let fileBrowser = this.fileInput.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const formData = new FormData();
+      let currentTime = new Date().getTime();
+      formData.append("file", fileBrowser.files[0], currentTime + '.jpg');
+
+      this.bottleService.uploadBottleFile(formData).subscribe(
+        data => {
+          this.data.photoUrl = this.PATH + currentTime;
+
+          this.bottleService.updateBottle(this.data).subscribe();
+        }
+      )
+    } else {
+      this.bottleService.updateBottle(this.data).subscribe();
+    }
   }
 }
