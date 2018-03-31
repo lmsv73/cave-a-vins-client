@@ -41,3 +41,7 @@ div.container > div
 md-icon{
   font-family: 'Material Icons' !important;
 }
+
+.clickable {
+  cursor: pointer;
+}

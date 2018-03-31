@@ -6,11 +6,10 @@
 
   <button mat-button routerLink="/addBottle">
     <mat-icon>add</mat-icon>
-    Ajouter une bouteille
+    Add bottle
   </button>
 
   <span class="fill-remaining-space"></span>
-  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-    <button (click)="userService.logout()" mat-button>Logout</button>
-  </div>
+
+  <mat-icon class="clickable" (click)="userService.logout()">input</mat-icon>
 </mat-toolbar>

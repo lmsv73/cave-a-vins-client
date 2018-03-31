@@ -1,5 +1,5 @@
 import {Component, Inject, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {BottleService, BottleType, BottleTypeService, Compartment, UserService} from '../api';
 
 @Component({
@@ -12,6 +12,7 @@ export class EditBottleComponent  {
   bottleTypes: BottleType[];
   compartments: Compartment[];
   years = [];
+  dataCopy: any;
 
   @ViewChild('fileInput') fileInput;
 
@@ -19,7 +20,8 @@ export class EditBottleComponent  {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public bottleTypeService: BottleTypeService,
     public bottleService: BottleService,
-    public userService: UserService) {
+    public userService: UserService,
+    private dialogRef: MatDialogRef<EditBottleComponent>) {
 
     let d = new Date();
     for(let i = d.getFullYear(); i >= 1800; --i) {
@@ -39,6 +41,8 @@ export class EditBottleComponent  {
         this.compartments = data;
         this.replaceReferenceCompartment();
       });
+
+    this.dataCopy = Object.assign({}, data);
   }
 
   save() {
@@ -50,32 +54,36 @@ export class EditBottleComponent  {
 
       this.bottleService.uploadBottleFile(formData).subscribe(
         data => {
-          this.data.photoUrl = this.PATH + currentTime;
+          this.dataCopy.photoUrl = this.PATH + currentTime;
 
-          this.bottleService.updateBottle(this.data).subscribe();
+          this.bottleService.updateBottle(this.dataCopy).subscribe(
+            res => {
+              this.dialogRef.close(res);
+            }
+          );
         }
       )
     } else {
-      this.bottleService.updateBottle(this.data).subscribe();
+      this.bottleService.updateBottle(this.dataCopy).subscribe(
+        res => {
+          this.dialogRef.close(res);
+        }
+      );
     }
-  }
-
-  cancel() {
-
   }
 
   replaceReferenceBottleType() {
     for(let bt of this.bottleTypes) {
-      if(JSON.stringify(this.data.type) === JSON.stringify(bt)) {
-        this.data.type = bt;
+      if(JSON.stringify(this.dataCopy.type) === JSON.stringify(bt)) {
+        this.dataCopy.type = bt;
       }
     }
   }
 
   replaceReferenceCompartment() {
     for(let c of this.compartments) {
-      if(JSON.stringify(this.data.compartment) === JSON.stringify(c)) {
-        this.data.compartment = c;
+      if(JSON.stringify(this.dataCopy.compartment) === JSON.stringify(c)) {
+        this.dataCopy.compartment = c;
       }
     }
   }

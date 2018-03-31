@@ -27,17 +27,24 @@ export class HomeComponent {
 
   displayedColumns = ['name', 'region', 'colour', 'compartment', 'date', 'number', 'photo', 'actionsColumn'];
 
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
 
+
   edit(data) {
     this.dialog.open(EditBottleComponent, {
       data: data,
       width: '500px'
+    }).afterClosed().subscribe(res => {
+      for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
+        if(this.ELEMENT_DATA[i].id == res.id) {
+          this.ELEMENT_DATA[i] = res;
+          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+        }
+      }
     });
   }
 }

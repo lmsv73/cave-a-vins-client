@@ -3,36 +3,36 @@
 <mat-dialog-content>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="data.type" placeholder="Type">
+    <mat-select [(ngModel)]="dataCopy.type" placeholder="Type">
       <mat-option *ngFor="let bottleType of bottleTypes" [value]="bottleType">{{ bottleType.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <input [(ngModel)]="data.colour" matInput placeholder="Colour">
+    <input [(ngModel)]="dataCopy.colour" matInput placeholder="Colour">
   </mat-form-field>
 
   <mat-form-field>
-    <input [(ngModel)]="data.region"  matInput placeholder="Region">
+    <input [(ngModel)]="dataCopy.region"  matInput placeholder="Region">
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="data.compartment" placeholder="Compartment">
+    <mat-select [(ngModel)]="dataCopy.compartment" placeholder="Compartment">
       <mat-option *ngFor="let compartment of compartments" [value]="compartment">{{ compartment.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="data.date" placeholder="Date">
+    <mat-select [(ngModel)]="dataCopy.date" placeholder="Date">
       <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <input [(ngModel)]="data.nbBottles" matInput placeholder="Number">
+    <input [(ngModel)]="dataCopy.nbBottles" matInput placeholder="Number">
   </mat-form-field>
 
-  <img class="img-bottle" *ngIf="data.photoUrl != null" src="{{ data.photoUrl }}">
+  <img class="img-bottle" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}">
 
   <label class="btn btn-default">
     Browse <input type="file" hidden name="photo" #fileInput>
@@ -42,5 +42,5 @@
 <mat-dialog-actions>
   <button mat-button (click)="save()" mat-dialog-close class="save">Save</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button (click)="cancel()" [mat-dialog-close]="true" class="cancel">Cancel</button>
+  <button mat-button [mat-dialog-close]="true" class="cancel">Cancel</button>
 </mat-dialog-actions>
