@@ -16,6 +16,7 @@ import {HomeComponent} from './home/home.component';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {AddBottleComponent} from './add-bottle/add-bottle.component';
 import {HeaderComponent} from './header/header.component';
+import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {HeaderComponent} from './header/header.component';
     LoginComponent,
     RegisterComponent,
     AddBottleComponent,
-    HeaderComponent
+    HeaderComponent,
+    EditBottleComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import {HeaderComponent} from './header/header.component';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditBottleComponent]
 })
 export class AppModule { }

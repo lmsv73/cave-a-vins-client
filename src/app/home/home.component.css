@@ -5,3 +5,11 @@ img {
 .example-header mat-form-field {
   margin-left: 20px;
 }
+
+.edit {
+  margin-right: 40px;
+}
+
+mat-icon {
+  cursor: pointer;
+}

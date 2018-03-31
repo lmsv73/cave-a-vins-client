@@ -51,6 +51,15 @@
       <mat-cell *matCellDef="let element"> <img *ngIf="element.photoUrl != null" src="{{ element.photoUrl }}"> </mat-cell>
     </ng-container>
 
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="actionsColumn">
+      <mat-header-cell *matHeaderCellDef>Edit</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-icon (click)="edit(row)" class="edit">edit</mat-icon>
+        <mat-icon>delete</mat-icon>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

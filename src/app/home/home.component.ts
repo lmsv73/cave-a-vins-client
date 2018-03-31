@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {Bottle, UserService} from '../api';
 import {Router} from '@angular/router';
+import {EditBottleComponent} from '../edit-bottle/edit-bottle.component';
 
 @Component({
     moduleId: module.id,
@@ -14,7 +15,9 @@ export class HomeComponent {
   dataSource;
 
   constructor(
-    public userService: UserService) {
+    public userService: UserService,
+    public dialog: MatDialog) {
+
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.getBottleByUserName(currentUser.user.username).subscribe(data => {
       this.ELEMENT_DATA = data;
@@ -22,7 +25,7 @@ export class HomeComponent {
     });
   }
 
-  displayedColumns = ['name', 'region', 'colour', 'compartment', 'date', 'number', 'photo'];
+  displayedColumns = ['name', 'region', 'colour', 'compartment', 'date', 'number', 'photo', 'actionsColumn'];
 
 
   applyFilter(filterValue: string) {
@@ -30,5 +33,13 @@ export class HomeComponent {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  edit(data) {
+    this.dialog.open(EditBottleComponent, {
+      data: data,
+      width: '500px'
+    });
+  }
+
 }
 
