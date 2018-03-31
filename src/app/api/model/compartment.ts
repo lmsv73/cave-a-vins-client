@@ -17,6 +17,6 @@ import {User} from './user';
 export interface Compartment {
     id?: number;
     name?: string;
-    photoUrls?: Array<string>;
+    photoUrl?: string;
     owner?: User;
 }

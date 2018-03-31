@@ -250,8 +250,6 @@ export class BottleService {
 
         let headers = this.defaultHeaders;
         headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-        //headers = headers.set('Content-Type', 'multipart/form-data');
-        //headers = headers.set('Boundary', 'bottlePhoto');
 
         return this.httpClient.post<any>(`${this.basePath}/images/upload`,
             formData,

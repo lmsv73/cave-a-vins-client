@@ -189,62 +189,16 @@ export class CompartmentService {
     /**
      * Upload an image for the add-compartment
      *
-     * @param compartmentId ID of add-compartment to update
-     * @param additionalMetadata Additional data to pass to server
-     * @param file file to upload
+     * @param formData data to pass to server
      */
-    public uploadCompartmentFile(compartmentId: number, additionalMetadata?: string, file?: Blob): Observable<ApiResponse> {
-        if (compartmentId === null || compartmentId === undefined) {
-            throw new Error('Required parameter compartmentId was null or undefined when calling uploadCompartmentFile.');
-        }
+    public uploadCompartmentFile(formData: FormData): Observable<ApiResponse> {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         let headers = this.defaultHeaders;
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'multipart/form-data'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        // see https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (additionalMetadata !== undefined) {
-            formParams = formParams.append('additionalMetadata', <any>additionalMetadata) || formParams;
-        }
-        if (file !== undefined) {
-            formParams = formParams.append('file', <any>file) || formParams;
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/compartment/${encodeURIComponent(String(compartmentId))}/uploadImage`,
-            convertFormParamsToString ? formParams.toString() : formParams,
+        return this.httpClient.post<any>(`${this.basePath}/images/upload`,
+            formData,
             {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,

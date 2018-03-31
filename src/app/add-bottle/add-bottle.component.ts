@@ -24,8 +24,10 @@ export class AddBottleComponent {
 
   newCompart: Compartment;
   nameCompartment: string;
+  photoCompartment = null;
 
   @ViewChild('fileInput') fileInput;
+  @ViewChild('fileCompart') fileCompart;
 
   constructor(
     public userService: UserService,
@@ -91,8 +93,24 @@ export class AddBottleComponent {
     )
   }
 
+
   addCompartment() {
-    this.createCompartment();
+    let fileBrowser = this.fileCompart.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const formData = new FormData();
+      let currentTime = new Date().getTime();
+      formData.append("file", fileBrowser.files[0], currentTime + '.jpg');
+
+      this.compartmentService.uploadCompartmentFile(formData).subscribe(
+        data => {
+          this.photoCompartment = this.PATH + currentTime;
+
+          this.createCompartment();
+        }
+      )
+    } else {
+      this.createCompartment();
+    }
   }
 
   createCompartment() {
@@ -100,7 +118,8 @@ export class AddBottleComponent {
 
     this.newCompart = {
       name: this.nameCompartment,
-      owner: currentUser.user
+      owner: currentUser.user,
+      photoUrl: this.photoCompartment
     };
 
     this.compartmentService.createCompartment(this.newCompart).subscribe(
