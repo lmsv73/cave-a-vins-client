@@ -29,6 +29,7 @@ export class EditBottleComponent  {
     bottleTypeService.getBottlesType().subscribe(
       data => {
         this.bottleTypes = data;
+        this.replaceReferenceBottleType();
       }
     );
 
@@ -36,6 +37,7 @@ export class EditBottleComponent  {
     userService.getCompartment(currentUser.user.username).subscribe(
       data => {
         this.compartments = data;
+        this.replaceReferenceCompartment();
       });
   }
 
@@ -55,6 +57,26 @@ export class EditBottleComponent  {
       )
     } else {
       this.bottleService.updateBottle(this.data).subscribe();
+    }
+  }
+
+  cancel() {
+
+  }
+
+  replaceReferenceBottleType() {
+    for(let bt of this.bottleTypes) {
+      if(JSON.stringify(this.data.type) === JSON.stringify(bt)) {
+        this.data.type = bt;
+      }
+    }
+  }
+
+  replaceReferenceCompartment() {
+    for(let c of this.compartments) {
+      if(JSON.stringify(this.data.compartment) === JSON.stringify(c)) {
+        this.data.compartment = c;
+      }
     }
   }
 }

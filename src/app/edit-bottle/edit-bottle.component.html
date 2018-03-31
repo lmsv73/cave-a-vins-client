@@ -3,8 +3,8 @@
 <mat-dialog-content>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="data.type.name" placeholder="Type">
-      <mat-option *ngFor="let bottleType of bottleTypes" [value]="bottleType.name">{{ bottleType.name }}</mat-option>
+    <mat-select [(ngModel)]="data.type" placeholder="Type">
+      <mat-option *ngFor="let bottleType of bottleTypes" [value]="bottleType">{{ bottleType.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -17,8 +17,8 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select [(ngModel)]="data.compartment.name" placeholder="Compartment">
-      <mat-option *ngFor="let compartment of compartments" [value]="compartment.name">{{ compartment.name }}</mat-option>
+    <mat-select [(ngModel)]="data.compartment" placeholder="Compartment">
+      <mat-option *ngFor="let compartment of compartments" [value]="compartment">{{ compartment.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -42,5 +42,5 @@
 <mat-dialog-actions>
   <button mat-button (click)="save()" mat-dialog-close class="save">Save</button>
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true" class="cancel">Cancel</button>
+  <button mat-button (click)="cancel()" [mat-dialog-close]="true" class="cancel">Cancel</button>
 </mat-dialog-actions>
