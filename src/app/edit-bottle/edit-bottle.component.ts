@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
-import {BottleType, BottleTypeService, Compartment, UserService} from '../api';
+import {BottleService, BottleType, BottleTypeService, Compartment, UserService} from '../api';
 
 @Component({
   selector: 'app-edit-bottle',
@@ -15,8 +15,9 @@ export class EditBottleComponent  {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    bottleTypeService: BottleTypeService,
-    userService: UserService) {
+    public bottleTypeService: BottleTypeService,
+    public bottleService: BottleService,
+    public userService: UserService) {
 
     let d = new Date();
     for(let i = d.getFullYear(); i >= 1800; --i) {
@@ -36,5 +37,7 @@ export class EditBottleComponent  {
       });
   }
 
-
+  save() {
+    this.bottleService.updateBottle(this.data).subscribe();
+  }
 }

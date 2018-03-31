@@ -24,6 +24,7 @@ import { Bottle } from '../model/bottle';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import {BottleType, Compartment} from '../index';
 
 
 @Injectable()
@@ -67,11 +68,6 @@ export class BottleService {
         if (body === null || body === undefined) {
             throw new Error('Required parameter body was null or undefined when calling createBottle.');
         }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
 
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -133,111 +129,23 @@ export class BottleService {
     }
 
     /**
-     * Find bottles for the userId
-     *
-     * @param userId ID of cellar to return
-     */
-    public getBottlesUser(userId: number): Observable<Bottle> {
-        if (userId === null || userId === undefined) {
-            throw new Error('Required parameter userId was null or undefined when calling getBottlesUser.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/bottle/getBottlesUser/${encodeURIComponent(String(userId))}`,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
-    }
-
-    /**
      * Update an existing add-bottle
      *
-     * @param bottleId Id of the add-bottle that needs to be updated
-     * @param date Updated date of the add-bottle
-     * @param region Updated region of the vine
-     * @param colour Updated colour of the vine
+     * @param formData data
      */
-    public updateBottle(bottleId: number, date?: number, region?: string, colour?: string): Observable<{}> {
-        if (bottleId === null || bottleId === undefined) {
-            throw new Error('Required parameter bottleId was null or undefined when calling updateBottle.');
+    public updateBottle(formData: FormData): Observable<{}> {
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+      let headers = this.defaultHeaders;
+      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
+
+      return this.httpClient.post<any>(`${this.basePath}/bottle/update`,
+        formData,
+        {
+          headers: headers,
+          withCredentials: this.configuration.withCredentials,
         }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/x-www-form-urlencoded'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (date !== undefined) {
-            formParams = formParams.append('date', <any>date) || formParams;
-        }
-        if (region !== undefined) {
-            formParams = formParams.append('region', <any>region) || formParams;
-        }
-        if (colour !== undefined) {
-            formParams = formParams.append('colour', <any>colour) || formParams;
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/bottle/update/${encodeURIComponent(String(bottleId))}`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+      );
     }
 
     /**

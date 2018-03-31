@@ -37,7 +37,8 @@ export class HomeComponent {
   edit(data) {
     this.dialog.open(EditBottleComponent, {
       data: data,
-      width: '500px'
+      width: '500px',
+      disableClose: true
     });
   }
 
