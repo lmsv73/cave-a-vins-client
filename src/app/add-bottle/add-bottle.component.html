@@ -44,14 +44,14 @@
     <div class="column">
       <h2>Create Compartment</h2>
       <mat-form-field>
-        <input matInput placeholder="Name">
+        <input [(ngModel)]="nameCompartment" matInput placeholder="Name">
       </mat-form-field>
 
       <label class="btn btn-default">
         Browse <input type="file" hidden>
       </label>
 
-      <button mat-button>Create</button>
+      <button (click)="addCompartment()" mat-button>Create</button>
     </div>
 
     <div class="column">

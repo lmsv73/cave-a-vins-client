@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService} from '../api';
+import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService, CompartmentService} from '../api';
 import {Router} from '@angular/router';
 
 @Component({
@@ -22,13 +22,17 @@ export class AddBottleComponent {
   number: number;
   photoUrl = null;
 
+  newCompart: Compartment;
+  nameCompartment: string;
+
   @ViewChild('fileInput') fileInput;
 
   constructor(
     public userService: UserService,
     public bottleTypeService: BottleTypeService,
     public bottleService: BottleService,
-    public router: Router) {
+    public router: Router,
+    public compartmentService: CompartmentService) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     userService.getCompartment(currentUser.user.username).subscribe(
@@ -79,9 +83,30 @@ export class AddBottleComponent {
       photoUrl: this.photoUrl
     };
 
+
     this.bottleService.createBottle(this.bottle).subscribe(
       data => {
         this.router.navigate(['']);
+      }
+    )
+  }
+
+  addCompartment() {
+    this.createCompartment();
+  }
+
+  createCompartment() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.newCompart = {
+      name: this.nameCompartment,
+      owner: currentUser.user
+    };
+
+    this.compartmentService.createCompartment(this.newCompart).subscribe(
+      data => {
+        this.compartments.push(this.newCompart);
+        this.newCompart = null;
       }
     )
   }
