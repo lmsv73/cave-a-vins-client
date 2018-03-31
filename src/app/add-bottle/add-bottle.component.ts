@@ -26,6 +26,9 @@ export class AddBottleComponent {
   nameCompartment: string;
   photoCompartment = null;
 
+  newBottleType: BottleType;
+  bottleTypeName: string;
+
   @ViewChild('fileInput') fileInput;
   @ViewChild('fileCompart') fileCompart;
 
@@ -46,7 +49,7 @@ export class AddBottleComponent {
       data => {
         this.bottleTypes = data;
       }
-    )
+    );
 
     let d = new Date();
     for(let i = d.getFullYear(); i >= 1800; --i) {
@@ -126,6 +129,20 @@ export class AddBottleComponent {
       data => {
         this.compartments.push(this.newCompart);
         this.newCompart = null;
+      }
+    )
+  }
+
+  addBottleType() {
+    this.newBottleType = {
+      name: this.bottleTypeName,
+      valide: false
+    };
+
+    this.bottleTypeService.addBottleType(this.newBottleType).subscribe(
+      data => {
+        this.bottleTypes.push(this.newBottleType);
+        this.newBottleType = null;
       }
     )
   }

@@ -57,10 +57,10 @@
     <div class="column">
       <h2>Create Bottle Type</h2>
       <mat-form-field>
-        <input matInput placeholder="Name">
+        <input [(ngModel)]="bottleTypeName" matInput placeholder="Name">
       </mat-form-field>
 
-      <button mat-button>Create</button>
+      <button (click)="addBottleType()" mat-button>Create</button>
     </div>
 
   </div>

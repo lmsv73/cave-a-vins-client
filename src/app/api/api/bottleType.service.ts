@@ -67,35 +67,12 @@ export class BottleTypeService {
             throw new Error('Required parameter body was null or undefined when calling addBottleType.');
         }
 
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         let headers = this.defaultHeaders;
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/json'
-        ];
-        let httpContentTypeSelected:string = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/bottletype`,
+        return this.httpClient.post<any>(`${this.basePath}/bottletype/`,
             body,
             {
                 headers: headers,
@@ -192,17 +169,17 @@ export class BottleTypeService {
      */
     public getBottlesType(): Observable<BottleType[]> {
 
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-      let headers = this.defaultHeaders;
-      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
+        let headers = this.defaultHeaders;
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+            return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
+                {
+                    headers: headers,
+                    withCredentials: this.configuration.withCredentials,
+                }
+            );
     }
 
     /**
