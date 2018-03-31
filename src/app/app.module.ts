@@ -14,7 +14,6 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {HomeComponent} from './home/home.component';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
-import {AddCompartmentComponent} from './add-compartment/add-compartment.component';
 import {AddBottleComponent} from './add-bottle/add-bottle.component';
 import {HeaderComponent} from './header/header.component';
 
@@ -24,7 +23,6 @@ import {HeaderComponent} from './header/header.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AddCompartmentComponent,
     AddBottleComponent,
     HeaderComponent
   ],
