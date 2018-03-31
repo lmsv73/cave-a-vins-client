@@ -59,24 +59,30 @@ export class AddBottleComponent {
         data => {
           this.photoUrl = this.PATH + currentTime;
 
-          this.bottle = {
-            colour: this.colour,
-            region: this.region,
-            compartment: this.cp,
-            date: this.date,
-            nbBottles: this.number,
-            type: this.bt,
-            owner: JSON.parse(localStorage.getItem('currentUser')).user,
-            photoUrl: this.photoUrl
-          };
-
-          this.bottleService.createBottle(this.bottle).subscribe(
-            data => {
-              this.router.navigate(['']);
-            }
-          )
+          this.createBottle();
         }
       )
+    } else {
+      this.createBottle();
     }
+  }
+
+  createBottle() {
+    this.bottle = {
+      colour: this.colour,
+      region: this.region,
+      compartment: this.cp,
+      date: this.date,
+      nbBottles: this.number,
+      type: this.bt,
+      owner: JSON.parse(localStorage.getItem('currentUser')).user,
+      photoUrl: this.photoUrl
+    };
+
+    this.bottleService.createBottle(this.bottle).subscribe(
+      data => {
+        this.router.navigate(['']);
+      }
+    )
   }
 }
