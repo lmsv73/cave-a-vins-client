@@ -7,3 +7,11 @@
   background-color: #F55555;
   color: white;
 }
+
+.img-compartment {
+  width: 100px;
+}
+
+[hidden] {
+  display: none !important;
+}

@@ -33,6 +33,7 @@
   </mat-form-field>
 
   <img class="img-bottle" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}">
+  <p *ngIf="dataCopy.photoUrl == null">No image</p>
 
   <label class="btn btn-default">
     Browse <input type="file" hidden name="photo" #fileInput>

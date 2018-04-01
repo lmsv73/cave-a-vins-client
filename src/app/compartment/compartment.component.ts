@@ -42,12 +42,15 @@ export class CompartmentComponent  {
   edit(data) {
     this.dialog.open(EditCompartmentComponent, {
       data: data,
-      width: '500px'
+      width: '500px',
+
     }).afterClosed().subscribe(res => {
-      for(let i = 0; i < this.compartments.length; ++i) {
-        if(res.id == this.compartments[i].id) {
-          this.compartments[i].name = res.name;
-          this.compartments[i].photoUrl = res.photoUrl;
+      if(res != undefined) {
+        for(let i = 0; i < this.compartments.length; ++i) {
+          if(res.id == this.compartments[i].id) {
+            this.compartments[i].name = res.name;
+            this.compartments[i].photoUrl = res.photoUrl;
+          }
         }
       }
     });

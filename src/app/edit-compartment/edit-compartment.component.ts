@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {EditBottleComponent} from '../edit-bottle/edit-bottle.component';
 import {Compartment, CompartmentService, UserService} from '../api';
@@ -9,11 +9,13 @@ import {Compartment, CompartmentService, UserService} from '../api';
   styleUrls: ['./edit-compartment.component.css']
 })
 export class EditCompartmentComponent {
-
+  PATH = "http://localhost:8080/images/";
   dataCopy: any;
   compartments: Compartment[];
   nameExist = false;
   initName: string;
+
+  @ViewChild('fileInput') fileInput;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,11 +34,30 @@ export class EditCompartmentComponent {
   }
 
   save() {
-    this.compartmentService.updateCompartment(this.dataCopy).subscribe(
-      data => {
-        this.dialogRef.close(data);
-      }
-    )
+    let fileBrowser = this.fileInput.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const formData = new FormData();
+      let currentTime = new Date().getTime();
+      formData.append("file", fileBrowser.files[0], currentTime + '.jpg');
+
+      this.compartmentService.uploadCompartmentFile(formData).subscribe(
+        data => {
+          this.dataCopy.photoUrl = this.PATH + currentTime;
+
+          this.compartmentService.updateCompartment(this.dataCopy).subscribe(
+            res => {
+              this.dialogRef.close(res);
+            }
+          );
+        }
+      )
+    } else {
+      this.compartmentService.updateCompartment(this.dataCopy).subscribe(
+        data => {
+          this.dialogRef.close(data);
+        }
+      )
+    }
   }
 
   activeButton() {

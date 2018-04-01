@@ -41,10 +41,12 @@ export class HomeComponent {
       data: data,
       width: '500px'
     }).afterClosed().subscribe(res => {
-      for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
-        if(this.ELEMENT_DATA[i].id == res.id) {
-          this.ELEMENT_DATA[i] = res;
-          this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+      if(res != undefined) {
+        for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
+          if(this.ELEMENT_DATA[i].id == res.id) {
+            this.ELEMENT_DATA[i] = res;
+            this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+          }
         }
       }
     });

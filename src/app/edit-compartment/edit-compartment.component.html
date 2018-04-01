@@ -4,6 +4,12 @@
   <input (keyup)="activeButton()" [(ngModel)]="dataCopy.name" matInput placeholder="Name">
 </mat-form-field>
 
+<img class="img-compartment" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}">
+
+<label class="btn btn-default">
+  Browse <input type="file" hidden name="photo" #fileInput>
+</label>
+
 <div *ngIf="nameExist" class="mat-error">
   This name already exist
 </div>
