@@ -18,6 +18,7 @@ import {AddBottleComponent} from './add-bottle/add-bottle.component';
 import {HeaderComponent} from './header/header.component';
 import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
 import {DeleteBottleComponent} from './delete-bottle/delete-bottle.component';
+import {CompartmentComponent} from './compartment/compartment.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {DeleteBottleComponent} from './delete-bottle/delete-bottle.component';
     AddBottleComponent,
     HeaderComponent,
     EditBottleComponent,
-    DeleteBottleComponent
+    DeleteBottleComponent,
+    CompartmentComponent
   ],
   imports: [
     BrowserModule,
