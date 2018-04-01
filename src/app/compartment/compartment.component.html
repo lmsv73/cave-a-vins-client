@@ -1,1 +1,30 @@
 <app-header></app-header>
+
+<mat-grid-list cols="5" rowHeight="250px">
+  <mat-grid-tile
+    *ngFor="let compartment of compartments"
+    [colspan]="1"
+    [rowspan]="1">
+
+    <mat-grid-tile-header>
+      <h4>{{ compartment.name }}</h4>
+      <span class="fill-remaining-space"></span>
+      <p>{{ compartment.nbBottles}} bottle(s)</p>
+      <span class="fill-remaining-space"></span>
+      <p>{{ compartment.nbBottlesTypes}} bottle type(s)</p>
+    </mat-grid-tile-header>
+
+    <div class="mat-grid-tile-body">
+      <img *ngIf="compartment.photoUrl != null" src="{{ compartment.photoUrl }}">
+      <p *ngIf="compartment.photoUrl == null">No image</p>
+    </div>
+
+    <mat-grid-tile-footer>
+      <mat-icon class="edit">edit</mat-icon>
+      <span class="full-fill-remaining-space"></span>
+      <mat-icon>delete</mat-icon>
+    </mat-grid-tile-footer>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
