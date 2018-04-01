@@ -130,60 +130,21 @@ export class CompartmentService {
     /**
      * Update an existing add-compartment
      *
-     * @param compartmentId Id of the add-compartment that needs to be updated
-     * @param name Updated name of the add-compartment
+     * @param formData data
      */
-    public updateCompartment(compartmentId: number, name?: string): Observable<{}> {
-        if (compartmentId === null || compartmentId === undefined) {
-            throw new Error('Required parameter compartmentId was null or undefined when calling updateCompartment.');
-        }
+    public updateCompartment(formData: FormData): Observable<{}> {
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         let headers = this.defaultHeaders;
+        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/x-www-form-urlencoded'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (name !== undefined) {
-            formParams = formParams.append('name', <any>name) || formParams;
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/compartment/update/${encodeURIComponent(String(compartmentId))}`,
-            convertFormParamsToString ? formParams.toString() : formParams,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+            return this.httpClient.post<any>(`${this.basePath}/compartment/update`,
+              formData,
+                {
+                    headers: headers,
+                    withCredentials: this.configuration.withCredentials,
+                }
+            );
     }
 
     /**

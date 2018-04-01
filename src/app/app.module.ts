@@ -19,6 +19,7 @@ import {HeaderComponent} from './header/header.component';
 import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
 import {DeleteBottleComponent} from './delete-bottle/delete-bottle.component';
 import {CompartmentComponent} from './compartment/compartment.component';
+import {EditCompartmentComponent} from './edit-compartment/edit-compartment.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {CompartmentComponent} from './compartment/compartment.component';
     HeaderComponent,
     EditBottleComponent,
     DeleteBottleComponent,
-    CompartmentComponent
+    CompartmentComponent,
+    EditCompartmentComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import {CompartmentComponent} from './compartment/compartment.component';
   bootstrap: [AppComponent],
   entryComponents: [
     EditBottleComponent,
-    DeleteBottleComponent
+    DeleteBottleComponent,
+    EditCompartmentComponent
   ]
 })
 export class AppModule { }
