@@ -42,8 +42,7 @@ export class CompartmentComponent  {
   edit(data) {
     this.dialog.open(EditCompartmentComponent, {
       data: data,
-      width: '500px',
-
+      width: '500px'
     }).afterClosed().subscribe(res => {
       if(res != undefined) {
         for(let i = 0; i < this.compartments.length; ++i) {

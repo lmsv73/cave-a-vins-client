@@ -20,6 +20,7 @@ import {EditBottleComponent} from './edit-bottle/edit-bottle.component';
 import {DeleteBottleComponent} from './delete-bottle/delete-bottle.component';
 import {CompartmentComponent} from './compartment/compartment.component';
 import {EditCompartmentComponent} from './edit-compartment/edit-compartment.component';
+import {LimitToPipe} from './limit-to.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {EditCompartmentComponent} from './edit-compartment/edit-compartment.comp
     EditBottleComponent,
     DeleteBottleComponent,
     CompartmentComponent,
-    EditCompartmentComponent
+    EditCompartmentComponent,
+    LimitToPipe
   ],
   imports: [
     BrowserModule,
