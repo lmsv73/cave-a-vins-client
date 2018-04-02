@@ -22,6 +22,9 @@ import {CompartmentComponent} from './compartment/compartment.component';
 import {EditCompartmentComponent} from './edit-compartment/edit-compartment.component';
 import {LimitToPipe} from './limit-to.pipe';
 import {DeleteCompartmentComponent} from './delete-compartment/delete-compartment.component';
+import {AdminComponent} from './admin/admin.component';
+import {AdminUserGuard} from './guards/admin-user.guard';
+import {SimpleUserGuard} from './guards/simple-user.guard';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import {DeleteCompartmentComponent} from './delete-compartment/delete-compartmen
     CompartmentComponent,
     EditCompartmentComponent,
     LimitToPipe,
-    DeleteCompartmentComponent
+    DeleteCompartmentComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import {DeleteCompartmentComponent} from './delete-compartment/delete-compartmen
     BottleTypeService,
     BottleService,
     AuthGuard,
+    AdminUserGuard,
+    SimpleUserGuard,
     OauthService,
     {
       provide: HTTP_INTERCEPTORS,

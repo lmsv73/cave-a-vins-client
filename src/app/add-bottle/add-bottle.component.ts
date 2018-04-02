@@ -141,7 +141,6 @@ export class AddBottleComponent {
 
     this.bottleTypeService.addBottleType(this.newBottleType).subscribe(
       data => {
-        this.bottleTypes.push(this.newBottleType);
         this.newBottleType = null;
       }
     )

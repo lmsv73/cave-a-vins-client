@@ -22,10 +22,6 @@ export class LoginComponent implements OnInit {
         private userService: UserService) { }
 
     ngOnInit() {
-        // reset login status
-        //this.userService.logout();
-
-        // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
@@ -34,12 +30,16 @@ export class LoginComponent implements OnInit {
         this.oauthService.getToken(this.model.username, this.model.password, "password")
             .subscribe(
                 data => {
-                    this.oauthService.isLogged = true;
                     localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, user: this.model.username }));
                     this.userService.getCredendials(this.model.username).subscribe(
                       data2 => {
+                        this.oauthService.isLogged = true;
                         localStorage.setItem("currentUser", JSON.stringify({ token: data.access_token, user: data2 }));
-                        this.router.navigate([this.returnUrl]);
+                        if(data2.roles[0].name == 'USER_ROLE') {
+                          this.router.navigate(['']);
+                        } else {
+                          this.router.navigate(['admin']);
+                        }
                       }
                     )
                 },

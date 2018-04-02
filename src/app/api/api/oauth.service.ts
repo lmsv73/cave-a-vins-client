@@ -29,7 +29,7 @@ export class OauthService {
   protected basePath = 'http://localhost:8080';
   public configuration = new Configuration();
 
-  isLogged = false;
+  isLogged: boolean;
 
   constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
     if (basePath) {
@@ -39,6 +39,8 @@ export class OauthService {
       this.configuration = configuration;
       this.basePath = basePath || configuration.basePath || this.basePath;
     }
+
+    this.isLogged = false;
   }
 
   /**
@@ -58,5 +60,32 @@ export class OauthService {
     let options = { headers: headers };
 
     return this.httpClient.post<any>(`${this.basePath}/oauth/token`, params.toString(), options);
+  }
+
+  public isLoggedIn() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(currentUser)
+      return true;
+    else
+      return false;
+  }
+
+  public isAdmin() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(currentUser && currentUser.user.roles[0].name == 'ADMIN_ROLE')
+      return true;
+    else
+      return false;
+  }
+
+  public isSimpleUser() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    if(currentUser && currentUser.user.roles[0].name == 'USER_ROLE')
+      return true;
+    else
+      return false;
   }
 }

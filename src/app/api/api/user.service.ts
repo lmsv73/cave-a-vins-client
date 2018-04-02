@@ -138,7 +138,7 @@ export class UserService {
    *
    * @param userName
    */
-  public getCredendials(userName: string): Observable<Bottle[]> {
+  public getCredendials(userName: string): Observable<User> {
     if (userName === null || userName === undefined) {
       throw new Error('Required parameter bottleId was null or undefined when calling getBottleById.');
     }
