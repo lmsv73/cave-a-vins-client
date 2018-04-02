@@ -104,7 +104,7 @@ export class BottleService {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,
             }
-          );
+        );
     }
 
     /**

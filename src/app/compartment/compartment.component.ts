@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { UserService} from '../api';
-import {MatDialog} from '@angular/material';
+import {CompartmentService, UserService} from '../api';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
 import { trigger, style, animate, transition } from '@angular/animations';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
+import {DeleteBottleComponent} from '../delete-bottle/delete-bottle.component';
+import {DeleteCompartmentComponent} from '../delete-compartment/delete-compartment.component';
 
 @Component({
   selector: 'app-compartment',
@@ -26,7 +28,8 @@ export class CompartmentComponent  {
 
   constructor(
     public userService: UserService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public compartmentService: CompartmentService) {
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     userService.getCompartment(currentUser.user.username).subscribe(
@@ -68,10 +71,24 @@ export class CompartmentComponent  {
     });
   }
 
-  wait() {
-    let timer = Observable.timer(5000);
-    timer.subscribe(res => {
-      return true;
-    })
+  delete(data) {
+    this.dialog.open(DeleteCompartmentComponent, {
+      data: data,
+      width: '500px'
+    }).afterClosed().subscribe(
+      res => {
+        if(res == "T") {
+          this.compartmentService.deleteCompartment(data.id).subscribe(
+            data2 => {
+              for(let i = 0; i < this.compartments.length; ++i) {
+                if(data.id == this.compartments[i].id) {
+                  this.compartments.splice(i, 1);
+                }
+              }
+            }
+          )
+        }
+      }
+    );
   }
 }
