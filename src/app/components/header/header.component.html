@@ -4,17 +4,19 @@
     {{title}}
   </button>
 
-  <button mat-button routerLink="/addBottle">
-    <mat-icon>add</mat-icon>
-    Add bottle
-  </button>
+  <div *ngIf="currentUser.user.roles[0].name == 'USER_ROLE'">
+    <button mat-button routerLink="/addBottle">
+      <mat-icon>add</mat-icon>
+      Add bottle
+    </button>
 
-  <button mat-button routerLink="/compartments">
-    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-      <path fill="#ffffff" d="M18,18H6V6H18M18,4H6A2,2 0 0,0 4,6V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18V6C20,4.89 19.1,4 18,4Z" />
-    </svg>
-    My compartments
-  </button>
+    <button mat-button routerLink="/compartments">
+      <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+        <path fill="#ffffff" d="M18,18H6V6H18M18,4H6A2,2 0 0,0 4,6V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18V6C20,4.89 19.1,4 18,4Z" />
+      </svg>
+      My compartments
+    </button>
+  </div>
 
   <span class="fill-remaining-space"></span>
 

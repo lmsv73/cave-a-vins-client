@@ -8,7 +8,13 @@ import {UserService} from '../../api';
 })
 export class HeaderComponent {
   title = 'Cave à vins';
-  constructor(public userService: UserService) { }
+  currentUser: any;
+
+  constructor(public userService: UserService) {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.currentUser = currentUser;
+  }
 
 
 }
