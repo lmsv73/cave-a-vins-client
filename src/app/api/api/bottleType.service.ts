@@ -128,34 +128,14 @@ export class BottleTypeService {
 
     /**
      * Get the list of the add-bottle types
-     * Get the list of the add-bottle types that need to be validated by the admin
      */
-    public getBottleToValidate(): Observable<BottleType> {
+    public getAllBottleTypes(): Observable<BottleType[]> {
 
-        let headers = this.defaultHeaders;
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-        ];
-
-        return this.httpClient.get<any>(`${this.basePath}/bottletype/getBottleToValidate`,
+      let headers = this.defaultHeaders;
+      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
+        return this.httpClient.get<any>(`${this.basePath}/bottletype/all`,
             {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,
@@ -174,12 +154,12 @@ export class BottleTypeService {
         let headers = this.defaultHeaders;
         headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-            return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
-                {
-                    headers: headers,
-                    withCredentials: this.configuration.withCredentials,
-                }
-            );
+        return this.httpClient.get<any>(`${this.basePath}/bottletype/all`,
+        {
+            headers: headers,
+            withCredentials: this.configuration.withCredentials,
+        }
+      );
     }
 
     /**

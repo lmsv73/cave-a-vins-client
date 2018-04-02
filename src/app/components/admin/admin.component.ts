@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {BottleType, BottleTypeService} from '../../api';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.css'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition('* => *', [
+          style({ opacity: 0}),
+          animate('500ms', style({transform: 'rotateY(360deg)', opacity: 1}))
+        ])
+      ]
+    )
+  ]
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
+  bottleTypes: BottleType[];
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(bottleTypeService: BottleTypeService) {
+    bottleTypeService.getAllBottleTypes().subscribe(
+      data => {
+        this.bottleTypes = data;
+      }
+    );
   }
-
 }

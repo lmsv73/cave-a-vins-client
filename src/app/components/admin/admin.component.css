@@ -1,0 +1,46 @@
+mat-grid-tile {
+  background: lightblue;
+  text-align: center;
+}
+
+mat-grid-tile img {
+  max-height: 155px;
+}
+
+.fill-remaining-space {
+  /*This fills the remaining space, by using flexbox.
+ Every toolbar row uses a flexbox row layout. */
+  flex: 0.5 1 auto;
+}
+
+.full-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+mat-icon {
+  font-size: x-large !important;
+  cursor: pointer;
+}
+
+mat-grid-tile-header {
+  font-size: 18px;
+}
+
+.mat-grid-tile-body {
+  width: 100%;
+  height: 61.6%;
+  cursor: pointer;
+}
+
+.mat-grid-tile-body:hover {
+  background: #569fb5;
+  transition: background 0.5s ease;
+}
+
+.mat-grid-tile-body p {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10%;
+  right: 10%;
+}
