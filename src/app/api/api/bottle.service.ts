@@ -45,21 +45,6 @@ export class BottleService {
     }
 
     /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (let consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
      * Create a new add-bottle
      *
      * @param body Bottle object that needs to be added

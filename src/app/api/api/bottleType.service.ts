@@ -165,59 +165,17 @@ export class BottleTypeService {
     /**
      * Update a add-bottle type
      *
-     * @param bottleTypeId Id of the add-bottle type that needs to be updated
-     * @param name Updated name of the add-bottle type
-     * @param valide Updated validity of the add-bottle type
+     * @param formData data
      */
-    public updateBottleType(bottleTypeId: number, name?: number, valide?: boolean): Observable<{}> {
-        if (bottleTypeId === null || bottleTypeId === undefined) {
-            throw new Error('Required parameter bottleTypeId was null or undefined when calling updateBottleType.');
-        }
+    public updateBottleType(formData: FormData): Observable<{}> {
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        let headers = this.defaultHeaders;
+      let headers = this.defaultHeaders;
+      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        // authentication (vinecellar_auth) required
-        if (this.configuration.accessToken) {
-            let accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
 
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        let httpHeaderAcceptSelected: string = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        let consumes: string[] = [
-            'application/x-www-form-urlencoded'
-        ];
-
-        const canConsumeForm = this.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): void; };
-        let useForm = false;
-        let convertFormParamsToString = false;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        }
-
-        if (name !== undefined) {
-            formParams = formParams.append('name', <any>name) || formParams;
-        }
-        if (valide !== undefined) {
-            formParams = formParams.append('valide', <any>valide) || formParams;
-        }
-
-        return this.httpClient.post<any>(`${this.basePath}/bottletype/update/${encodeURIComponent(String(bottleTypeId))}`,
-            convertFormParamsToString ? formParams.toString() : formParams,
+      return this.httpClient.post<any>(`${this.basePath}/bottletype/update/`,
+        formData,
             {
                 headers: headers,
                 withCredentials: this.configuration.withCredentials,

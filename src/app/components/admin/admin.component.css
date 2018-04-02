@@ -29,12 +29,6 @@ mat-grid-tile-header {
 .mat-grid-tile-body {
   width: 100%;
   height: 61.6%;
-  cursor: pointer;
-}
-
-.mat-grid-tile-body:hover {
-  background: #569fb5;
-  transition: background 0.5s ease;
 }
 
 .mat-grid-tile-body p {
@@ -43,4 +37,12 @@ mat-grid-tile-header {
   transform: translateY(-50%);
   left: 10%;
   right: 10%;
+}
+
+.valide {
+  background-color: #5cb85c;
+}
+
+.no-valide {
+  background-color: #ac2925;
 }

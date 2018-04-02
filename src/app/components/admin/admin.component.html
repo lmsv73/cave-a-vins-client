@@ -12,8 +12,10 @@
       <span class="fill-remaining-space"></span>
     </mat-grid-tile-header>
 
+    <div class="mat-grid-tile-body" [ngClass]="bottleType.valide ? 'valide' : 'no-valide'"></div>
+
     <mat-grid-tile-footer>
-      <mat-icon class="edit">edit</mat-icon>
+      <mat-icon class="edit" (click)="edit(bottleType)">edit</mat-icon>
       <span class="full-fill-remaining-space"></span>
       <mat-icon>delete</mat-icon>
     </mat-grid-tile-footer>
