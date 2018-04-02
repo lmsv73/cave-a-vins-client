@@ -1,6 +1,5 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
 
 @Component({
   selector: 'app-delete-compartment',
@@ -12,7 +11,7 @@ export class DeleteCompartmentComponent {
   isDeletable: boolean;
 
   constructor(
-    private dialogRef: MatDialogRef<EditCompartmentComponent>,
+    private dialogRef: MatDialogRef<DeleteCompartmentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.isDeletable = data.bottles.length == 0;
@@ -21,5 +20,4 @@ export class DeleteCompartmentComponent {
   accept() {
     this.dialogRef.close("T");
   }
-
 }

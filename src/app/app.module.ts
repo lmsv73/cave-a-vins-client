@@ -26,6 +26,7 @@ import {AdminComponent} from './components/admin/admin.component';
 import {AdminUserGuard} from './guards/admin-user.guard';
 import {SimpleUserGuard} from './guards/simple-user.guard';
 import {EditBottleTypeComponent} from './components/edit-bottle-type/edit-bottle-type.component';
+import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-bottle-type.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {EditBottleTypeComponent} from './components/edit-bottle-type/edit-bottle
     LimitToPipe,
     DeleteCompartmentComponent,
     AdminComponent,
-    EditBottleTypeComponent
+    EditBottleTypeComponent,
+    DeleteBottleTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import {EditBottleTypeComponent} from './components/edit-bottle-type/edit-bottle
     DeleteBottleComponent,
     EditCompartmentComponent,
     DeleteCompartmentComponent,
-    EditBottleTypeComponent
+    EditBottleTypeComponent,
+    DeleteBottleTypeComponent
   ]
 })
 export class AppModule { }
