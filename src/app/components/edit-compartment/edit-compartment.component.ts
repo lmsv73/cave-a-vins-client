@@ -1,7 +1,7 @@
 import {Component, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {EditBottleComponent} from '../edit-bottle/edit-bottle.component';
-import {Compartment, CompartmentService, UserService} from '../api';
+import {Compartment, CompartmentService, UserService} from '../../api/index';
 
 @Component({
   selector: 'app-edit-compartment',

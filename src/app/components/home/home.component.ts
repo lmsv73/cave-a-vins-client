@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatTableDataSource} from '@angular/material';
-import {Bottle, BottleService, UserService} from '../api';
+import {Bottle, BottleService, UserService} from '../../api/index';
 import {Router} from '@angular/router';
 import {EditBottleComponent} from '../edit-bottle/edit-bottle.component';
 import {DeleteBottleComponent} from '../delete-bottle/delete-bottle.component';

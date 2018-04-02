@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CompartmentService, UserService} from '../api';
+import {CompartmentService, UserService} from '../../api/index';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
 import { trigger, style, animate, transition } from '@angular/animations';

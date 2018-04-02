@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService, CompartmentService} from '../api';
+import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService, CompartmentService} from '../../api/index';
 import {Router} from '@angular/router';
 
 @Component({

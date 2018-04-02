@@ -1,11 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
 import {AuthGuard} from './guards/auth.guard';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-import {HomeComponent} from './home/home.component';
-import {AddBottleComponent} from './add-bottle/add-bottle.component';
-import {CompartmentComponent} from './compartment/compartment.component';
-import {AdminComponent} from './admin/admin.component';
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
+import {HomeComponent} from './components/home/home.component';
+import {AddBottleComponent} from './components/add-bottle/add-bottle.component';
+import {CompartmentComponent} from './components/compartment/compartment.component';
+import {AdminComponent} from './components/admin/admin.component';
 import {AdminUserGuard} from './guards/admin-user.guard';
 import {SimpleUserGuard} from './guards/simple-user.guard';
 
