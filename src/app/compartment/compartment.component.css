@@ -30,7 +30,6 @@ mat-grid-tile-header {
   width: 100%;
   height: 61.6%;
   cursor: pointer;
-  position: relative;
 }
 
 .mat-grid-tile-body:hover {

@@ -2,11 +2,24 @@ import { Component } from '@angular/core';
 import { UserService} from '../api';
 import {MatDialog} from '@angular/material';
 import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
+import { trigger, style, animate, transition } from '@angular/animations';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Component({
   selector: 'app-compartment',
   templateUrl: './compartment.component.html',
-  styleUrls: ['./compartment.component.css']
+  styleUrls: ['./compartment.component.css'],
+  animations: [
+    trigger(
+      'enterAnimation', [
+        transition('* => *', [
+          style({ opacity: 0}),
+          animate('500ms', style({transform: 'rotateY(360deg)', opacity: 1}))
+        ])
+      ]
+    )
+  ]
 })
 export class CompartmentComponent  {
   compartments: any;
@@ -55,4 +68,10 @@ export class CompartmentComponent  {
     });
   }
 
+  wait() {
+    let timer = Observable.timer(5000);
+    timer.subscribe(res => {
+      return true;
+    })
+  }
 }

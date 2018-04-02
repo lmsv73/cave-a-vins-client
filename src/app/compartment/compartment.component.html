@@ -2,6 +2,7 @@
 
 <mat-grid-list cols="5" rowHeight="250px">
   <mat-grid-tile
+    [@enterAnimation]="compartments.length"
     *ngFor="let compartment of compartments"
     [colspan]="1"
     [rowspan]="1">
