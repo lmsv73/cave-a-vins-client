@@ -4,7 +4,7 @@
   <input (keyup)="activeButton()" [(ngModel)]="dataCopy.name" matInput placeholder="Name">
 </mat-form-field>
 
-<img class="img-compartment" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}">
+<img class="img-compartment" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}" alt="{{ dataCopy.name }}">
 
 <label class="btn btn-default">
   Browse <input type="file" hidden name="photo" #fileInput>

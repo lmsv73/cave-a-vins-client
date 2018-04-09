@@ -48,7 +48,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="photo">
       <mat-header-cell *matHeaderCellDef> Photo </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <img *ngIf="element.photoUrl != null" src="{{ element.photoUrl }}"> </mat-cell>
+      <mat-cell *matCellDef="let element"> <img *ngIf="element.photoUrl != null" src="{{ element.photoUrl }}" alt="{{ element.name }}"> </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->

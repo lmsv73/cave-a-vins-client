@@ -133,7 +133,7 @@ export class BottleTypeService {
         let headers = this.defaultHeaders;
         headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
-        return this.httpClient.get<any>(`${this.basePath}/bottletype/all`,
+        return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
         {
             headers: headers,
             withCredentials: this.configuration.withCredentials,

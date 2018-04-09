@@ -16,7 +16,7 @@
     </mat-grid-tile-header>
 
     <div class="mat-grid-tile-body">
-      <img *ngIf="compartment.photoUrl != null" src="{{ compartment.photoUrl }}">
+      <img *ngIf="compartment.photoUrl != null" src="{{ compartment.photoUrl }}" alt="{{ compartment.name }}">
       <p *ngIf="compartment.photoUrl == null">No image</p>
     </div>
 

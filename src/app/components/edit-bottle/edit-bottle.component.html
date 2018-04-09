@@ -32,7 +32,7 @@
     <input [(ngModel)]="dataCopy.nbBottles" matInput placeholder="Number">
   </mat-form-field>
 
-  <img class="img-bottle" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}">
+  <img class="img-bottle" *ngIf="dataCopy.photoUrl != null" src="{{ dataCopy.photoUrl }}" alt="{{ dataCopy.name }}">
   <p *ngIf="dataCopy.photoUrl == null">No image</p>
 
   <label class="btn btn-default">

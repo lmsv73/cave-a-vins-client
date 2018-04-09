@@ -14,7 +14,7 @@ export class DeleteBottleTypeComponent {
     private dialogRef: MatDialogRef<DeleteBottleTypeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.isDeletable = data.valide != true;
+    this.isDeletable = !data.valide;
   }
 
   accept() {
