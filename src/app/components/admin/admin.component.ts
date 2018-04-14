@@ -46,6 +46,9 @@ export class AdminComponent {
           if(res.id == this.bottleTypes[i].id) {
             this.bottleTypes[i].name = res.name;
             this.bottleTypes[i].valide = res.valide;
+            this.bottleTypes[i].colour = res.colour;
+            this.bottleTypes[i].region = res.region;
+            this.bottleTypes[i].date = res.date;
           }
         }
       }

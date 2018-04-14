@@ -5,28 +5,29 @@
     <div class="column">
       <h2>Create Bottle</h2>
       <mat-form-field>
-        <mat-select [(ngModel)]="bt" placeholder="Type">
+        <mat-select (change)="loadBT(bt)" [(ngModel)]="bt" placeholder="Type">
           <mat-option *ngFor="let bottleType of bottleTypes" [value]="bottleType">{{ bottleType.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <input [(ngModel)]="colour" matInput placeholder="Colour">
+        <input *ngIf="selectedBottleType == null" disabled="true" matInput placeholder="Colour">
+        <input *ngIf="selectedBottleType != null" disabled="true" [value]="selectedBottleType.colour" matInput placeholder="Colour">
       </mat-form-field>
 
       <mat-form-field>
-        <input [(ngModel)]="region"  matInput placeholder="Region">
+        <input *ngIf="selectedBottleType == null" disabled="true"  matInput placeholder="Region">
+        <input *ngIf="selectedBottleType != null" disabled="true" [value]="selectedBottleType.region" matInput placeholder="Region">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input *ngIf="selectedBottleType == null" disabled="true" matInput placeholder="Date">
+        <input *ngIf="selectedBottleType != null" disabled="true" [value]="selectedBottleType.date" matInput placeholder="Date">
       </mat-form-field>
 
       <mat-form-field>
         <mat-select [(ngModel)]="cp" placeholder="Compartment">
           <mat-option *ngFor="let compartment of compartments" [value]="compartment">{{ compartment.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-select [(ngModel)]="date" placeholder="Date">
-          <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -41,6 +42,8 @@
       <button (click)="addBottle()" mat-button>Create</button>
     </div>
 
+
+
     <div class="column">
       <h2>Create Compartment</h2>
       <mat-form-field>
@@ -54,10 +57,26 @@
       <button (click)="addCompartment()" mat-button>Create</button>
     </div>
 
+
+
     <div class="column">
       <h2>Create Bottle Type</h2>
       <mat-form-field>
         <input [(ngModel)]="bottleTypeName" matInput placeholder="Name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input [(ngModel)]="bottleTypeColour" matInput placeholder="Colour">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input [(ngModel)]="bottleTypeRegion" matInput placeholder="Region">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select [(ngModel)]="bottleTypeDate" placeholder="Date">
+          <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <button (click)="addBottleType()" mat-button>Create</button>

@@ -28,6 +28,11 @@ export class AddBottleComponent {
 
   newBottleType: BottleType;
   bottleTypeName: string;
+  bottleTypeColour: string;
+  bottleTypeRegion: string;
+  bottleTypeDate: number;
+
+  selectedBottleType: BottleType;
 
   @ViewChild('fileInput') fileInput;
   @ViewChild('fileCompart') fileCompart;
@@ -78,10 +83,7 @@ export class AddBottleComponent {
 
   createBottle() {
     this.bottle = {
-      colour: this.colour,
-      region: this.region,
       compartment: this.cp,
-      date: this.date,
       nbBottles: this.number,
       type: this.bt,
       owner: JSON.parse(localStorage.getItem('currentUser')).user,
@@ -136,6 +138,9 @@ export class AddBottleComponent {
   addBottleType() {
     this.newBottleType = {
       name: this.bottleTypeName,
+      colour: this.bottleTypeColour,
+      region: this.bottleTypeRegion,
+      date: this.bottleTypeDate,
       valide: false
     };
 
@@ -144,5 +149,9 @@ export class AddBottleComponent {
         this.newBottleType = null;
       }
     )
+  }
+
+  loadBT(data) {
+    this.selectedBottleType = data;
   }
 }

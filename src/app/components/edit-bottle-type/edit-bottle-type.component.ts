@@ -10,6 +10,7 @@ import {BottleType, BottleTypeService} from '../../api';
 export class EditBottleTypeComponent {
   bottleTypes: BottleType[];
   dataCopy: any;
+  years = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -18,6 +19,11 @@ export class EditBottleTypeComponent {
 
     this.bottleTypes = data;
     this.dataCopy = Object.assign({}, data);
+
+    let d = new Date();
+    for(let i = d.getFullYear(); i >= 1800; --i) {
+      this.years.push(i);
+    }
   }
 
   save() {
@@ -27,6 +33,4 @@ export class EditBottleTypeComponent {
       }
     );
   }
-
-
 }

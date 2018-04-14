@@ -31,14 +31,6 @@ mat-grid-tile-header {
   height: 61.6%;
 }
 
-.mat-grid-tile-body p {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10%;
-  right: 10%;
-}
-
 .valide {
   background-color: #5cb85c;
 }

@@ -6,6 +6,20 @@
     <input [(ngModel)]="dataCopy.name" matInput placeholder="Name">
   </mat-form-field>
 
+  <mat-form-field>
+    <input [(ngModel)]="dataCopy.region" matInput placeholder="Region">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [(ngModel)]="dataCopy.colour" matInput placeholder="Colour">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="dataCopy.date" placeholder="Date">
+      <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-checkbox [disabled]="data.valide" [(ngModel)]="dataCopy.valide">Valide</mat-checkbox>
 
 </mat-dialog-content>

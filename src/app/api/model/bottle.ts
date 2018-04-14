@@ -17,9 +17,6 @@ import { User } from './user';
 
 export interface Bottle {
     id?: number;
-    date?: number;
-    region?: string;
-    colour?: string;
     photoUrl?: string;
     owner?: User;
     type?: BottleType;
