@@ -33,6 +33,7 @@ export class AddBottleComponent {
   bottleTypeDate: number;
 
   selectedBottleType: BottleType;
+  isNumber = true;
 
   @ViewChild('fileInput') fileInput;
   @ViewChild('fileCompart') fileCompart;
@@ -154,5 +155,9 @@ export class AddBottleComponent {
 
   loadBT(data) {
     this.selectedBottleType = data;
+  }
+
+  checkNumber() {
+    this.isNumber = !isNaN(this.number);
   }
 }

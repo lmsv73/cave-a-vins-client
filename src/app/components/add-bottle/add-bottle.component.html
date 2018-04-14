@@ -32,14 +32,19 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input [(ngModel)]="number" matInput placeholder="Number">
+        <input (keyup)="checkNumber()" [(ngModel)]="number" matInput placeholder="Number">
       </mat-form-field>
+
+      <div *ngIf="!isNumber" class="mat-error">
+        Not a number
+      </div>
+
 
       <label class="btn btn-default">
         Browse <input type="file" hidden name="photo" #fileInput>
       </label>
 
-      <button (click)="addBottle()" mat-button>Create</button>
+      <button [disabled]="!isNumber" (click)="addBottle()" mat-button>Create</button>
     </div>
 
 
