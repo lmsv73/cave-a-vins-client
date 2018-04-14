@@ -29,7 +29,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 export class BottleTypeService {
 
     protected basePath = 'http://localhost:8080';
-    public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
@@ -67,16 +66,10 @@ export class BottleTypeService {
             throw new Error('Required parameter body was null or undefined when calling addBottleType.');
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
         return this.httpClient.post<any>(`${this.basePath}/bottletype/`,
             body,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
@@ -92,15 +85,9 @@ export class BottleTypeService {
             throw new Error('Required parameter bottletypeId was null or undefined when calling deleteBottleType.');
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
         return this.httpClient.delete<any>(`${this.basePath}/bottletype/delete/${encodeURIComponent(String(bottletypeId))}`,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
@@ -110,14 +97,9 @@ export class BottleTypeService {
      */
     public getAllBottleTypes(): Observable<BottleType[]> {
 
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-      let headers = this.defaultHeaders;
-      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
         return this.httpClient.get<any>(`${this.basePath}/bottletype/all`,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
@@ -128,15 +110,9 @@ export class BottleTypeService {
      */
     public getBottlesType(): Observable<BottleType[]> {
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
         return this.httpClient.get<any>(`${this.basePath}/bottletype/`,
         {
-            headers: headers,
-            withCredentials: this.configuration.withCredentials,
+            withCredentials: this.configuration.withCredentials
         }
       );
     }
@@ -147,19 +123,13 @@ export class BottleTypeService {
      * @param formData data
      */
     public updateBottleType(formData: FormData): Observable<{}> {
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-      let headers = this.defaultHeaders;
-      headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
-
-      return this.httpClient.post<any>(`${this.basePath}/bottletype/update/`,
-        formData,
-            {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
-            }
-        );
+        return this.httpClient.post<any>(`${this.basePath}/bottletype/update/`,
+            formData,
+                {
+                    withCredentials: this.configuration.withCredentials
+                }
+            );
     }
 
 }

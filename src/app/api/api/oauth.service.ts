@@ -74,18 +74,12 @@ export class OauthService {
   public isAdmin() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if(currentUser && currentUser.user.roles[0].name == 'ADMIN_ROLE')
-      return true;
-    else
-      return false;
+    return currentUser && currentUser.user.roles[0].name == 'ADMIN_ROLE';
   }
 
   public isSimpleUser() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    if(currentUser && currentUser.user.roles[0].name == 'USER_ROLE')
-      return true;
-    else
-      return false;
+    return currentUser && currentUser.user.roles[0].name == 'USER_ROLE';
   }
 }

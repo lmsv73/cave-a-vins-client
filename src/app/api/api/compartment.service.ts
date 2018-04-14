@@ -44,21 +44,6 @@ export class CompartmentService {
     }
 
     /**
-     * @param consumes string[] mime-types
-     * @return true: consumes contains 'multipart/form-data', false: otherwise
-     */
-    private canConsumeForm(consumes: string[]): boolean {
-        const form = 'multipart/form-data';
-        for (let consume of consumes) {
-            if (form === consume) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
      * Create a new add-compartment
      *
      * @param body Compartment object that needs to be added
@@ -68,16 +53,10 @@ export class CompartmentService {
             throw new Error('Required parameter body was null or undefined when calling createCompartment.');
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
         return this.httpClient.post<any>(`${this.basePath}/compartment/create`,
             body,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
@@ -93,15 +72,9 @@ export class CompartmentService {
             throw new Error('Required parameter compartmentId was null or undefined when calling deleteCompartment.');
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
         return this.httpClient.delete<any>(`${this.basePath}/compartment/delete/${encodeURIComponent(String(compartmentId))}`,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
@@ -112,18 +85,13 @@ export class CompartmentService {
      * @param formData data
      */
     public updateCompartment(formData: FormData): Observable<{}> {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
-
-            return this.httpClient.post<any>(`${this.basePath}/compartment/update`,
-              formData,
+        return this.httpClient.post<any>(`${this.basePath}/compartment/update`,
+            formData,
                 {
-                    headers: headers,
                     withCredentials: this.configuration.withCredentials,
                 }
-            );
+        );
     }
 
     /**
@@ -132,16 +100,11 @@ export class CompartmentService {
      * @param formData data to pass to server
      */
     public uploadCompartmentFile(formData: FormData): Observable<ApiResponse> {
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-        let headers = this.defaultHeaders;
-        headers = headers.set('Authorization', 'Bearer ' + currentUser.token);
 
         return this.httpClient.post<any>(`${this.basePath}/images/upload`,
             formData,
             {
-                headers: headers,
-                withCredentials: this.configuration.withCredentials,
+                withCredentials: this.configuration.withCredentials
             }
         );
     }
