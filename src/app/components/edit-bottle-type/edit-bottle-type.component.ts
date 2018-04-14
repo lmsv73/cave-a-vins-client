@@ -33,21 +33,25 @@ export class EditBottleTypeComponent {
     for(let i = d.getFullYear(); i >= 1800; --i) {
       this.years.push(i);
     }
+    this.regionCtrl = new FormControl();
 
     regionService.getRegions().subscribe(
       data => {
         this.regionList = data;
+
+
+        this.filteredRegions = this.regionCtrl.valueChanges
+          .pipe(
+            startWith(''),
+            map(region => region ? this.filterRegions(region) : this.regionList.slice())
+          );
       });
-    this.regionCtrl = new FormControl();
-    this.filteredRegions = this.regionCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(region => region ? this.filterRegions(region) : this.regionList.slice())
-      );
+
+
+
   }
 
   filterRegions(name: string) {
-    console.log(name);
     return this.regionList.filter(region =>
       region.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }

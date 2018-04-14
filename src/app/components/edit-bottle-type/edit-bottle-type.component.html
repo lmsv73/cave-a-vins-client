@@ -10,7 +10,7 @@
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Region" aria-label="Region" [matAutocomplete]="auto" [formControl]="regionCtrl" [(ngModel)]="dataCopy.region" >
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let region of regionList" [value]="region">
+      <mat-option *ngFor="let region of filteredRegions | async" [value]="region">
         <span>{{region}}</span>
       </mat-option>
     </mat-autocomplete>

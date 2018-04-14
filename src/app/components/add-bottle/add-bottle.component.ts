@@ -2,6 +2,10 @@ import {Component, ViewChild} from '@angular/core';
 import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService, CompartmentService} from '../../api/index';
 import {Router} from '@angular/router';
 import {RegionService} from "../../api/api/region.service";
+import {FormControl} from "@angular/forms";
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-add-bottle',
@@ -34,6 +38,9 @@ export class AddBottleComponent {
   bottleTypeRegion: string;
   bottleTypeDate: number;
 
+  filteredRegions: Observable<any[]>;
+  regionCtrl: FormControl;
+
   selectedBottleType: BottleType;
   isNumber = true;
 
@@ -59,15 +66,29 @@ export class AddBottleComponent {
         this.bottleTypes = data;
       }
     );
+    this.regionCtrl = new FormControl();
+
     regionService.getRegions().subscribe(
       data => {
         this.regionList = data;
+
+        this.filteredRegions = this.regionCtrl.valueChanges
+          .pipe(
+            startWith(''),
+            map(region => region ? this.filterRegions(region) : this.regionList.slice())
+        );
+
     });
 
     let d = new Date();
     for(let i = d.getFullYear(); i >= 1800; --i) {
       this.years.push(i);
     }
+  }
+
+  filterRegions(name: string) {
+    return this.regionList.filter(region =>
+      region.toLowerCase().indexOf(name.toLowerCase()) === 0);
   }
 
   addBottle() {
