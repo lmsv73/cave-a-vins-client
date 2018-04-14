@@ -39,12 +39,11 @@
         Not a number
       </div>
 
-
       <label class="btn btn-default">
         Browse <input type="file" hidden name="photo" #fileInput>
       </label>
 
-      <button [disabled]="!isNumber" (click)="addBottle()" mat-button>Create</button>
+      <button [disabled]="!isNumber || !bt || !cp || !number" (click)="addBottle()" mat-button>Create</button>
     </div>
 
 
@@ -59,7 +58,7 @@
         Browse <input type="file" hidden #fileCompart>
       </label>
 
-      <button (click)="addCompartment()" mat-button>Create</button>
+      <button [disabled]="!nameCompartment" (click)="addCompartment()" mat-button>Create</button>
     </div>
 
 
@@ -84,7 +83,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button (click)="addBottleType()" mat-button>Create</button>
+      <button [disabled]="!bottleTypeName || !bottleTypeRegion || !bottleTypeColour || !bottleTypeDate" (click)="addBottleType()" mat-button>Create</button>
     </div>
 
   </div>
