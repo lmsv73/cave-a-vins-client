@@ -7,7 +7,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BottleService, BottleTypeService, CompartmentService, UserService , RegionService} from './api';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {routing} from './app.routing';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OauthService} from './api/api/oauth.service';
 import {AuthGuard} from './guards/auth.guard';
 import {LoginComponent} from './components/login/login.component';
@@ -52,7 +52,8 @@ import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-
     MaterialModule,
     HttpClientModule,
     routing,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserService,
