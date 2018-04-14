@@ -131,6 +131,7 @@ export class AddBottleComponent {
       data => {
         this.compartments.push(this.newCompart);
         this.newCompart = null;
+        this.router.navigate(['compartments']);
       }
     )
   }
