@@ -6,4 +6,6 @@ export * from './compartment.service';
 import { CompartmentService } from './compartment.service';
 export * from './user.service';
 import { UserService } from './user.service';
-export const APIS = [BottleService, BottleTypeService, CompartmentService, UserService];
+export * from './region.service';
+import { RegionService } from './region.service';
+export const APIS = [BottleService, BottleTypeService, CompartmentService, UserService , RegionService];

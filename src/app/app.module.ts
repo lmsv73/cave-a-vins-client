@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {MaterialModule} from './material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BottleService, BottleTypeService, CompartmentService, UserService} from './api';
+import {BottleService, BottleTypeService, CompartmentService, UserService , RegionService} from './api';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {routing} from './app.routing';
 import {FormsModule} from '@angular/forms';
@@ -63,6 +63,7 @@ import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-
     AdminUserGuard,
     SimpleUserGuard,
     OauthService,
+    RegionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

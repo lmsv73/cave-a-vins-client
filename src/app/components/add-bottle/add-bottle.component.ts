@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {BottleType, BottleTypeService, Compartment, UserService, Bottle, BottleService, CompartmentService} from '../../api/index';
 import {Router} from '@angular/router';
+import {RegionService} from "../../api/api/region.service";
 
 @Component({
   selector: 'app-add-bottle',
@@ -16,6 +17,7 @@ export class AddBottleComponent {
 
   colour: string;
   region: string;
+  regionList: string[];
   cp: Compartment;
   bt: BottleType;
   date: number;
@@ -43,6 +45,7 @@ export class AddBottleComponent {
     public bottleTypeService: BottleTypeService,
     public bottleService: BottleService,
     public router: Router,
+    public regionService: RegionService,
     public compartmentService: CompartmentService) {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -56,6 +59,10 @@ export class AddBottleComponent {
         this.bottleTypes = data;
       }
     );
+    regionService.getRegions().subscribe(
+      data => {
+        this.regionList = data;
+    });
 
     let d = new Date();
     for(let i = d.getFullYear(); i >= 1800; --i) {

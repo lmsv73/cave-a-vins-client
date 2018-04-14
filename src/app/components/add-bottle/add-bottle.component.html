@@ -20,6 +20,7 @@
         <input *ngIf="selectedBottleType != null" disabled="true" [value]="selectedBottleType.region" matInput placeholder="Region">
       </mat-form-field>
 
+
       <mat-form-field>
         <input *ngIf="selectedBottleType == null" disabled="true" matInput placeholder="Date">
         <input *ngIf="selectedBottleType != null" disabled="true" [value]="selectedBottleType.date" matInput placeholder="Date">
@@ -73,8 +74,13 @@
         <input [(ngModel)]="bottleTypeColour" matInput placeholder="Colour">
       </mat-form-field>
 
-      <mat-form-field>
-        <input [(ngModel)]="bottleTypeRegion" matInput placeholder="Region">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Region" aria-label="Region" [matAutocomplete]="auto" [(ngModel)]="bottleTypeRegion">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let region of regionList" [value]="region">
+            <span>{{region}}</span>
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field>
