@@ -27,6 +27,7 @@ import {AdminUserGuard} from './guards/admin-user.guard';
 import {SimpleUserGuard} from './guards/simple-user.guard';
 import {EditBottleTypeComponent} from './components/edit-bottle-type/edit-bottle-type.component';
 import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-bottle-type.component';
+import {CreateBottleTypeComponent} from './components/create-bottle-type/create-bottle-type.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-
     DeleteCompartmentComponent,
     AdminComponent,
     EditBottleTypeComponent,
-    DeleteBottleTypeComponent
+    DeleteBottleTypeComponent,
+    CreateBottleTypeComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ import {DeleteBottleTypeComponent} from './components/delete-bottle-type/delete-
     EditCompartmentComponent,
     DeleteCompartmentComponent,
     EditBottleTypeComponent,
-    DeleteBottleTypeComponent
+    DeleteBottleTypeComponent,
+    CreateBottleTypeComponent
   ]
 })
 export class AppModule { }

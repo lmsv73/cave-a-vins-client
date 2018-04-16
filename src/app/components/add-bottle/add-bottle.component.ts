@@ -6,6 +6,8 @@ import {FormControl} from "@angular/forms";
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {Observable} from "rxjs/Observable";
+import {MatDialog} from '@angular/material';
+import {CreateBottleTypeComponent} from '../create-bottle-type/create-bottle-type.component';
 
 @Component({
   selector: 'app-add-bottle',
@@ -39,7 +41,8 @@ export class AddBottleComponent {
     public bottleService: BottleService,
     public router: Router,
     public regionService: RegionService,
-    public compartmentService: CompartmentService) {
+    public compartmentService: CompartmentService,
+    public dialog: MatDialog) {
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUser = currentUser.user;
@@ -145,6 +148,7 @@ export class AddBottleComponent {
 
     this.bottleTypeService.addBottleType(this.bottleType).subscribe(
       data => {
+        this.dialog.open(CreateBottleTypeComponent, { width: '500px'});
         this.bottleType = {};
       }
     )
