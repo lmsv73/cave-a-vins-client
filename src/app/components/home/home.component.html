@@ -7,41 +7,41 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Name </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.type.name}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="region">
-      <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Region </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.type.region }} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="colour">
-      <mat-header-cell *matHeaderCellDef> Colour </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Colour </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.type.colour }} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="compartment">
-      <mat-header-cell *matHeaderCellDef> Compartment </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Compartment </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.compartment.name}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Date </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.type.date}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Number </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.nbBottles}} </mat-cell>
     </ng-container>
 
