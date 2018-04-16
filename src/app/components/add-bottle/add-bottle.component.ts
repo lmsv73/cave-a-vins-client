@@ -16,27 +16,13 @@ export class AddBottleComponent {
   PATH = "http://localhost:8080/images/";
   compartments: Compartment[];
   bottleTypes: BottleType[];
-  bottle: Bottle;
   years = [];
-
-  colour: string;
-  region: string;
   regionList: string[];
-  cp: Compartment;
-  bt: BottleType;
-  date: number;
-  number: number;
-  photoUrl = null;
+  currentUser: any;
 
-  newCompart: Compartment;
-  nameCompartment: string;
-  photoCompartment = null;
-
-  newBottleType: BottleType;
-  bottleTypeName: string;
-  bottleTypeColour: string;
-  bottleTypeRegion: string;
-  bottleTypeDate: number;
+  bottle: Bottle = {} as any;
+  compartment: Compartment = {} as any;
+  bottleType: BottleType = {} as any;
 
   filteredRegions: Observable<any[]>;
   regionCtrl: FormControl;
@@ -54,7 +40,9 @@ export class AddBottleComponent {
     public router: Router,
     public regionService: RegionService,
     public compartmentService: CompartmentService) {
+
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = currentUser.user;
 
     userService.getCompartment(currentUser.user.username).subscribe(
       data => {
@@ -100,7 +88,7 @@ export class AddBottleComponent {
 
       this.bottleService.uploadBottleFile(formData).subscribe(
         data => {
-          this.photoUrl = this.PATH + currentTime;
+          this.bottle.photoUrl = this.PATH + currentTime;
 
           this.createBottle();
         }
@@ -111,14 +99,7 @@ export class AddBottleComponent {
   }
 
   createBottle() {
-    this.bottle = {
-      compartment: this.cp,
-      nbBottles: this.number,
-      type: this.bt,
-      owner: JSON.parse(localStorage.getItem('currentUser')).user,
-      photoUrl: this.photoUrl
-    };
-
+    this.bottle.owner = this.currentUser;
 
     this.bottleService.createBottle(this.bottle).subscribe(
       data => {
@@ -137,7 +118,7 @@ export class AddBottleComponent {
 
       this.compartmentService.uploadCompartmentFile(formData).subscribe(
         data => {
-          this.photoCompartment = this.PATH + currentTime;
+          this.compartment.photoUrl = this.PATH + currentTime;
 
           this.createCompartment();
         }
@@ -148,35 +129,23 @@ export class AddBottleComponent {
   }
 
   createCompartment() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.compartment.owner = this.currentUser;
 
-    this.newCompart = {
-      name: this.nameCompartment,
-      owner: currentUser.user,
-      photoUrl: this.photoCompartment
-    };
-
-    this.compartmentService.createCompartment(this.newCompart).subscribe(
+    this.compartmentService.createCompartment(this.compartment).subscribe(
       data => {
-        this.compartments.push(this.newCompart);
-        this.newCompart = null;
+        this.compartments.push(this.compartment);
+        this.compartment = null;
         this.router.navigate(['compartments']);
       }
     )
   }
 
   addBottleType() {
-    this.newBottleType = {
-      name: this.bottleTypeName,
-      colour: this.bottleTypeColour,
-      region: this.bottleTypeRegion,
-      date: this.bottleTypeDate,
-      valide: false
-    };
+    this.bottleType.valide = false;
 
-    this.bottleTypeService.addBottleType(this.newBottleType).subscribe(
+    this.bottleTypeService.addBottleType(this.bottleType).subscribe(
       data => {
-        this.newBottleType = null;
+        this.bottleType = {};
       }
     )
   }
@@ -186,6 +155,6 @@ export class AddBottleComponent {
   }
 
   checkNumber() {
-    this.isNumber = !isNaN(this.number);
+    this.isNumber = !isNaN(this.bottle.nbBottles);
   }
 }

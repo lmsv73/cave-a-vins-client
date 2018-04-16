@@ -5,7 +5,7 @@
     <div class="column">
       <h2>Create Bottle</h2>
       <mat-form-field>
-        <mat-select (change)="loadBT(bt)" [(ngModel)]="bt" placeholder="Type">
+        <mat-select (change)="loadBT(bottle.type)" [(ngModel)]="bottle.type" placeholder="Type">
           <mat-option *ngFor="let bottleType of bottleTypes" [value]="bottleType">{{ bottleType.name }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -27,13 +27,13 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select [(ngModel)]="cp" placeholder="Compartment">
+        <mat-select [(ngModel)]="bottle.compartment" placeholder="Compartment">
           <mat-option *ngFor="let compartment of compartments" [value]="compartment">{{ compartment.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-        <input (keyup)="checkNumber()" [(ngModel)]="number" matInput placeholder="Number">
+        <input (keyup)="checkNumber()" [(ngModel)]="bottle.nbBottles" matInput placeholder="Number">
       </mat-form-field>
 
       <div *ngIf="!isNumber" class="mat-error">
@@ -44,7 +44,7 @@
         Browse <input type="file" hidden name="photo" #fileInput>
       </label>
 
-      <button [disabled]="!isNumber || !bt || !cp || !number" (click)="addBottle()" mat-button>Create</button>
+      <button [disabled]="!isNumber || !bottle.type || !bottle.compartment || !bottle.nbBottles" (click)="addBottle()" mat-button>Create</button>
     </div>
 
 
@@ -52,14 +52,14 @@
     <div class="column">
       <h2>Create Compartment</h2>
       <mat-form-field>
-        <input [(ngModel)]="nameCompartment" matInput placeholder="Name">
+        <input [(ngModel)]="compartment.name" matInput placeholder="Name">
       </mat-form-field>
 
       <label class="btn btn-default">
         Browse <input type="file" hidden #fileCompart>
       </label>
 
-      <button [disabled]="!nameCompartment" (click)="addCompartment()" mat-button>Create</button>
+      <button [disabled]="!compartment.name" (click)="addCompartment()" mat-button>Create</button>
     </div>
 
 
@@ -67,15 +67,15 @@
     <div class="column">
       <h2>Create Bottle Type</h2>
       <mat-form-field>
-        <input [(ngModel)]="bottleTypeName" matInput placeholder="Name">
+        <input [(ngModel)]="bottleType.name" matInput placeholder="Name">
       </mat-form-field>
 
       <mat-form-field>
-        <input [(ngModel)]="bottleTypeColour" matInput placeholder="Colour">
+        <input [(ngModel)]="bottleType.colour" matInput placeholder="Colour">
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Region" aria-label="Region" [matAutocomplete]="auto" [formControl]="regionCtrl" [(ngModel)]="bottleTypeRegion">
+        <input matInput placeholder="Region" aria-label="Region" [matAutocomplete]="auto" [formControl]="regionCtrl" [(ngModel)]="bottleType.region">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let region of filteredRegions | async" [value]="region">
             <span>{{region}}</span>
@@ -84,12 +84,12 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-select [(ngModel)]="bottleTypeDate" placeholder="Date">
+        <mat-select [(ngModel)]="bottleType.date" placeholder="Date">
           <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <button [disabled]="!bottleTypeName || !bottleTypeRegion || !bottleTypeColour || !bottleTypeDate" (click)="addBottleType()" mat-button>Create</button>
+      <button [disabled]="!bottleType.name || !bottleType.region || !bottleType.colour || !bottleType.date" (click)="addBottleType()" mat-button>Create</button>
     </div>
 
   </div>
