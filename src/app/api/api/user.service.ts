@@ -30,7 +30,7 @@ import {Router} from '@angular/router';
 @Injectable()
 export class UserService {
 
-    protected basePath = 'http://localhost:8080';
+    protected basePath = 'http://localhost:8080/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -62,7 +62,7 @@ export class UserService {
         params.append('username', username);
         params.append('password', password);
 
-        return this.httpClient.post<any>(`${this.basePath}/user/create?username=${encodeURIComponent(String(username))}&password=${encodeURIComponent(String(password))}`,
+        return this.httpClient.post<any>(`${this.basePath}/user/?username=${encodeURIComponent(String(username))}&password=${encodeURIComponent(String(password))}`,
             params,
                 {
                     headers: headers,

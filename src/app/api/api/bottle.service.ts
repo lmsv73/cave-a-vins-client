@@ -30,7 +30,7 @@ import {BottleType, Compartment} from '../index';
 @Injectable()
 export class BottleService {
 
-    protected basePath = 'http://localhost:8080';
+    protected basePath = 'http://localhost:8080/api';
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
@@ -53,7 +53,7 @@ export class BottleService {
             throw new Error('Required parameter body was null or undefined when calling createBottle.');
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/bottle/create`,
+        return this.httpClient.post<any>(`${this.basePath}/bottle/`,
             body,
             {
                 withCredentials: this.configuration.withCredentials
@@ -71,7 +71,7 @@ export class BottleService {
             throw new Error('Required parameter bottleId was null or undefined when calling deleteBottle.');
         }
 
-        return this.httpClient.delete<any>(`${this.basePath}/bottle/delete/${encodeURIComponent(String(bottleId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/bottle/${encodeURIComponent(String(bottleId))}`,
             {
                 withCredentials: this.configuration.withCredentials
             }
@@ -85,7 +85,7 @@ export class BottleService {
      */
     public updateBottle(formData: FormData): Observable<{}> {
 
-      return this.httpClient.post<any>(`${this.basePath}/bottle/update`,
+      return this.httpClient.put<any>(`${this.basePath}/bottle/`,
         formData,
         {
           withCredentials: this.configuration.withCredentials
@@ -100,7 +100,7 @@ export class BottleService {
      */
     public uploadBottleFile(formData: FormData): Observable<ApiResponse> {
 
-        return this.httpClient.post<any>(`${this.basePath}/images/upload`,
+        return this.httpClient.post<any>(`${this.basePath}/images/`,
             formData,
             {
                 withCredentials: this.configuration.withCredentials

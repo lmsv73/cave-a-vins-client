@@ -8,7 +8,7 @@ import {BottleService, BottleType, BottleTypeService, Compartment, UserService} 
   styleUrls: ['./edit-bottle.component.css']
 })
 export class EditBottleComponent  {
-  PATH = "http://localhost:8080/images/";
+  PATH = 'http://localhost:8080/api/images/';
   bottleTypes: BottleType[];
   compartments: Compartment[];
   years = [];

@@ -7,7 +7,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class RegionService {
 
-  protected basePath = 'http://localhost:8080';
+  protected basePath = 'http://localhost:8080/api';
   public configuration = new Configuration();
 
   constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {

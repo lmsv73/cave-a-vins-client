@@ -28,7 +28,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 @Injectable()
 export class BottleTypeService {
 
-    protected basePath = 'http://localhost:8080';
+    protected basePath = 'http://localhost:8080/api';
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
@@ -85,7 +85,7 @@ export class BottleTypeService {
             throw new Error('Required parameter bottletypeId was null or undefined when calling deleteBottleType.');
         }
 
-        return this.httpClient.delete<any>(`${this.basePath}/bottletype/delete/${encodeURIComponent(String(bottletypeId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/bottletype/${encodeURIComponent(String(bottletypeId))}`,
             {
                 withCredentials: this.configuration.withCredentials
             }
@@ -124,7 +124,7 @@ export class BottleTypeService {
      */
     public updateBottleType(formData: FormData): Observable<{}> {
 
-        return this.httpClient.post<any>(`${this.basePath}/bottletype/update/`,
+        return this.httpClient.put<any>(`${this.basePath}/bottletype/`,
             formData,
                 {
                     withCredentials: this.configuration.withCredentials

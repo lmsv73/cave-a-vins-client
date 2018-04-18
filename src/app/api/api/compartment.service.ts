@@ -29,7 +29,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 @Injectable()
 export class CompartmentService {
 
-    protected basePath = 'http://localhost:8080';
+    protected basePath = 'http://localhost:8080/api';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -53,7 +53,7 @@ export class CompartmentService {
             throw new Error('Required parameter body was null or undefined when calling createCompartment.');
         }
 
-        return this.httpClient.post<any>(`${this.basePath}/compartment/create`,
+        return this.httpClient.post<any>(`${this.basePath}/compartment/`,
             body,
             {
                 withCredentials: this.configuration.withCredentials
@@ -72,7 +72,7 @@ export class CompartmentService {
             throw new Error('Required parameter compartmentId was null or undefined when calling deleteCompartment.');
         }
 
-        return this.httpClient.delete<any>(`${this.basePath}/compartment/delete/${encodeURIComponent(String(compartmentId))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/compartment/${encodeURIComponent(String(compartmentId))}`,
             {
                 withCredentials: this.configuration.withCredentials
             }
@@ -86,7 +86,7 @@ export class CompartmentService {
      */
     public updateCompartment(formData: FormData): Observable<{}> {
 
-        return this.httpClient.post<any>(`${this.basePath}/compartment/update`,
+        return this.httpClient.put<any>(`${this.basePath}/compartment/`,
             formData,
                 {
                     withCredentials: this.configuration.withCredentials,
@@ -101,7 +101,7 @@ export class CompartmentService {
      */
     public uploadCompartmentFile(formData: FormData): Observable<ApiResponse> {
 
-        return this.httpClient.post<any>(`${this.basePath}/images/upload`,
+        return this.httpClient.post<any>(`${this.basePath}/images/upload/`,
             formData,
             {
                 withCredentials: this.configuration.withCredentials

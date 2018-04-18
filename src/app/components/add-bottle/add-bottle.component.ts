@@ -15,7 +15,7 @@ import {CreateBottleTypeComponent} from '../create-bottle-type/create-bottle-typ
   styleUrls: ['./add-bottle.component.css']
 })
 export class AddBottleComponent {
-  PATH = "http://localhost:8080/images/";
+  PATH = 'http://localhost:8080/api/images/';
   compartments: Compartment[];
   bottleTypes: BottleType[];
   years = [];
