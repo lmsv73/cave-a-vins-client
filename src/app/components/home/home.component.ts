@@ -27,7 +27,7 @@ export class HomeComponent {
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.dataSource.filterPredicate = (bottle: any, filter) => {
         const dataStr = bottle.type.name + bottle.type.region + bottle.type.date + bottle.type.colour + bottle.compartment.name;
-        return dataStr.toLowerCase().indexOf(filter) != -1;
+        return dataStr.toLowerCase().indexOf(filter) !== -1;
       };
     });
   }
@@ -40,13 +40,13 @@ export class HomeComponent {
 
   sortData(sort: Sort) {
     const data = this.ELEMENT_DATA.slice();
-    if (!sort.active || sort.direction == '') {
+    if (!sort.active || sort.direction === '') {
       this.dataSource.data = data;
       return;
     }
 
     this.dataSource.data = data.sort((a:any, b:any) => {
-      let isAsc = sort.direction == 'asc';
+      const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'name': return compare(a.name, b.name, isAsc);
         case 'region': return compare(a.type.region, b.type.region, isAsc);
@@ -64,9 +64,9 @@ export class HomeComponent {
       data: data,
       width: '500px'
     }).afterClosed().subscribe(res => {
-      if(res != undefined) {
-        for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
-          if(this.ELEMENT_DATA[i].id == res.id) {
+      if (res !== undefined) {
+        for (let i = 0; i < this.ELEMENT_DATA.length; ++i) {
+          if (this.ELEMENT_DATA[i].id === res.id) {
             this.ELEMENT_DATA[i] = res;
             this.dataSource.data = this.ELEMENT_DATA.slice();
           }
@@ -81,11 +81,11 @@ export class HomeComponent {
       width: '500px'
     }).afterClosed().subscribe(
       res => {
-        if(res == "T") {
+        if (res === 'T') {
           this.bottleService.deleteBottle(data.id).subscribe(
             res2 => {
-              for(let i = 0; i < this.ELEMENT_DATA.length; ++i) {
-                if(this.ELEMENT_DATA[i].id == data.id) {
+              for (let i = 0; i < this.ELEMENT_DATA.length; ++i) {
+                if (this.ELEMENT_DATA[i].id === data.id) {
                   this.ELEMENT_DATA.splice(i, 1);
                   this.dataSource.data = this.ELEMENT_DATA.slice();
                 }
