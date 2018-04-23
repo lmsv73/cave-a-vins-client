@@ -21,10 +21,14 @@ export class HomeComponent {
     public dialog: MatDialog,
     public bottleService: BottleService) {
 
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.getBottleByUserName(currentUser.user.username).subscribe(data => {
       this.ELEMENT_DATA = data;
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+      this.dataSource.filterPredicate = (bottle: any, filter) => {
+        const dataStr = bottle.type.name + bottle.type.region + bottle.type.date + bottle.type.colour + bottle.compartment.name;
+        return dataStr.toLowerCase().indexOf(filter) != -1;
+      };
     });
   }
 
