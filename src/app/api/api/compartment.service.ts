@@ -13,7 +13,7 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams }               from '@angular/common/http';
+import { HttpClient, HttpHeaders }                           from '@angular/common/http';
 
 import { Observable }                                        from 'rxjs/Observable';
 import '../rxjs-operators';
@@ -21,16 +21,13 @@ import '../rxjs-operators';
 import { ApiResponse } from '../model/apiResponse';
 import { Compartment } from '../model/compartment';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { BASE_PATH }                                         from '../variables';
 import { Configuration }                                     from '../configuration';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
-
 
 @Injectable()
 export class CompartmentService {
 
     protected basePath = 'http://localhost:8080/api';
-    public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
     constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
