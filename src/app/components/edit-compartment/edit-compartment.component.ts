@@ -9,7 +9,7 @@ import {Compartment, CompartmentService, UserService} from '../../api/index';
   styleUrls: ['./edit-compartment.component.css']
 })
 export class EditCompartmentComponent {
-  PATH = "http://localhost:8080/images/";
+  PATH = "http://localhost:8080/api/images/";
   dataCopy: any;
   compartments: Compartment[];
   nameExist = false;
