@@ -98,7 +98,7 @@ export class CompartmentService {
      */
     public uploadCompartmentFile(formData: FormData): Observable<ApiResponse> {
 
-        return this.httpClient.post<any>(`${this.basePath}/images/upload/`,
+        return this.httpClient.post<any>(`${this.basePath}/images/`,
             formData,
             {
                 withCredentials: this.configuration.withCredentials

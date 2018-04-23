@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import {BottleType, BottleTypeService} from '../../api';
 import {animate, style, transition, trigger} from '@angular/animations';
-import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
 import {MatDialog} from '@angular/material';
 import {EditBottleTypeComponent} from '../edit-bottle-type/edit-bottle-type.component';
-import {DeleteCompartmentComponent} from '../delete-compartment/delete-compartment.component';
 import {DeleteBottleTypeComponent} from '../delete-bottle-type/delete-bottle-type.component';
 
 @Component({

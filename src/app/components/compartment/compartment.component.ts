@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {CompartmentService, UserService} from '../../api/index';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {EditCompartmentComponent} from '../edit-compartment/edit-compartment.component';
 import { trigger, style, animate, transition } from '@angular/animations';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
-import {DeleteBottleComponent} from '../delete-bottle/delete-bottle.component';
 import {DeleteCompartmentComponent} from '../delete-compartment/delete-compartment.component';
 
 @Component({
