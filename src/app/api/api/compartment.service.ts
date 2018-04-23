@@ -13,7 +13,7 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
 import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders }                           from '@angular/common/http';
+import { HttpClient }                                        from '@angular/common/http';
 
 import { Observable }                                        from 'rxjs/Observable';
 import '../rxjs-operators';
